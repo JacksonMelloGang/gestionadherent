@@ -48,6 +48,21 @@ public class Adherent {
         this.mail = mail;
     }
 
+    public int getAdherentId() {
+        return adherentId;
+    }
+
+    public void setAdherentId(int adherentId) {
+        this.adherentId = adherentId;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
     public String getNom() {
         return nom;
