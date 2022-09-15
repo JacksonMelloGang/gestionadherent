@@ -3,22 +3,18 @@ package fr.nimamoums.gestadher.adherents;
 public class Adherent {
 
     private int adherentId;
-
     private String nom;
     private String nom_naissance;
-
     private String prenom;
     private String genre;
     private String nationalite;
-
     private String date_naissance;
     private String pays_ville_naissance;
-
     private String adresse;
     private String code_postal;
-
-    private String tel;
-    private String mail;
+    private String tel;private String mail;
+    private String date_adhesion;
+    private String pratique;
 
     public Adherent(String nom, String prenom, String genre, String nationalite, String date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail) {
         this.nom = nom;
@@ -47,6 +43,34 @@ public class Adherent {
         this.tel = tel;
         this.mail = mail;
     }
+
+
+    public String getDate_adhesion() {
+        return date_adhesion;
+    }
+
+    public void setDate_adhesion(String date_adhesion) {
+        this.date_adhesion = date_adhesion;
+    }
+
+    public String getPratique() {
+        return pratique;
+    }
+
+    public void setPratique(String pratique) {
+        this.pratique = pratique;
+    }
+
+    public String getLateralite() {
+        return lateralite;
+    }
+
+    public void setLateralite(String lateralite) {
+        this.lateralite = lateralite;
+    }
+
+    private String lateralite;
+
 
     public int getAdherentId() {
         return adherentId;
