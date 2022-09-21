@@ -8,6 +8,8 @@ public class Main {
 
         GestionClubs.loadlistfromxmlfile();
 
+        System.out.println(        GestionClubs.getClubList().size());
+
 
     }
 

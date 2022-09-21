@@ -16,7 +16,7 @@ public class GestionClubs {
 
     static List<Club> clubList = new ArrayList<>();
 
-    public List<Club> getClubList() {
+    public static List<Club> getClubList() {
         return clubList;
     }
 
