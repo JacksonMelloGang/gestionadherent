@@ -1,5 +1,9 @@
 package fr.nimamoums.gestadher.matos;
 
+import fr.nimamoums.gestadher.matos.interfaces.Arme;
+import fr.nimamoums.gestadher.matos.interfaces.Masque;
+import fr.nimamoums.gestadher.matos.interfaces.Veste;
+
 import java.util.ArrayList;
 import java.util.List;
 

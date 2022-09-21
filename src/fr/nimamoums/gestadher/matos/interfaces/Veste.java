@@ -1,11 +1,10 @@
-package fr.nimamoums.gestadher.matos;
+package fr.nimamoums.gestadher.matos.interfaces;
 
-public abstract class Arme {
+public abstract class Veste {
 
     public abstract String nom();
 
     public abstract double prixlocation();
 
     public abstract double prixcaution();
-
 }

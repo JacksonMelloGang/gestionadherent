@@ -3,7 +3,7 @@ package fr.nimamoums.gestadher.matos;
 import fr.nimamoums.gestadher.matos.interfaces.Arme;
 import fr.nimamoums.gestadher.matos.interfaces.Louable;
 
-public class Veste extends Arme implements Louable {
+public class MasqueS extends Arme implements Louable {
 
     @Override
     public String nom() {

@@ -33,6 +33,11 @@ public class GestionAdherents {
         return adherent;
     }
 
+    public static List<Adherent> getListofAdherentByFile(){
+
+        return null;
+    }
+
     public static void addAdherent(Adherent adherent){
         adherentList.add(adherent);
     }

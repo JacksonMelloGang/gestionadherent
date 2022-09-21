@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadher.matos;
+package fr.nimamoums.gestadher.matos.interfaces;
 
 public abstract class Masque {
 
