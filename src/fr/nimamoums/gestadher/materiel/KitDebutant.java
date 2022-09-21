@@ -1,9 +1,9 @@
-package fr.nimamoums.gestadher.matos;
+package fr.nimamoums.gestadher.materiel;
 
-import fr.nimamoums.gestadher.matos.interfaces.Arme;
-import fr.nimamoums.gestadher.matos.interfaces.Louable;
+import fr.nimamoums.gestadher.materiel.interfaces.Arme;
+import fr.nimamoums.gestadher.materiel.interfaces.Louable;
 
-public class MasqueS extends Arme implements Louable {
+public class KitDebutant extends Arme implements Louable {
 
     @Override
     public String nom() {
@@ -19,4 +19,5 @@ public class MasqueS extends Arme implements Louable {
     public double prix_caution() {
         return 0;
     }
+
 }

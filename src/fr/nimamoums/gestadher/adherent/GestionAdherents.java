@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadher.adherents;
+package fr.nimamoums.gestadher.adherent;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,6 @@
-package fr.nimamoums.gestadher.adherents;
+package fr.nimamoums.gestadher.adherent;
+
+import java.time.LocalDate;
 
 public class Adherent {
 
@@ -8,29 +10,29 @@ public class Adherent {
     private String prenom;
     private String genre;
     private String nationalite;
-    private String date_naissance;
+    private LocalDate date_naissance;
     private String pays_ville_naissance;
     private String adresse;
     private String code_postal;
-    private String tel;private String mail;
+    private String tel;
+
+    private String mail;
     private String date_adhesion;
     private String pratique;
 
-    public Adherent(String nom, String prenom, String genre, String nationalite, String date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail) {
-        this.nom = nom;
-        this.nom_naissance = nom;
-        this.prenom = prenom;
-        this.genre = genre;
-        this.nationalite = nationalite;
-        this.date_naissance = date_naissance;
-        this.pays_ville_naissance = pays_ville_naissance;
-        this.adresse = adresse;
-        this.code_postal = code_postal;
-        this.tel = tel;
-        this.mail = mail;
-    }
+    private double cotisation;
 
-    public Adherent(String nom, String nom_naissance, String prenom, String genre, String nationalite, String date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail) {
+    private boolean hasAssurance;
+
+    private boolean reduction2emeadhere;
+
+    private boolean reduction3andplusadhere;
+
+    //////////////////////////////////////////////////////////////////////////
+
+
+    public Adherent(int adherentId, String nom, String nom_naissance, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+        this.adherentId = adherentId;
         this.nom = nom;
         this.nom_naissance = nom_naissance;
         this.prenom = prenom;
@@ -42,7 +44,39 @@ public class Adherent {
         this.code_postal = code_postal;
         this.tel = tel;
         this.mail = mail;
+        this.date_adhesion = date_adhesion;
+        this.pratique = pratique;
+        this.cotisation = cotisation;
+        this.hasAssurance = hasAssurance;
+        this.reduction2emeadhere = reduction2emeadhere;
+        this.reduction3andplusadhere = reduction3andplusadhere;
+        this.lateralite = lateralite;
     }
+
+    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+        this.adherentId = adherentId;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.genre = genre;
+        this.nationalite = nationalite;
+        this.date_naissance = date_naissance;
+        this.pays_ville_naissance = pays_ville_naissance;
+        this.adresse = adresse;
+        this.code_postal = code_postal;
+        this.tel = tel;
+        this.mail = mail;
+        this.date_adhesion = date_adhesion;
+        this.pratique = pratique;
+        this.cotisation = cotisation;
+        this.hasAssurance = hasAssurance;
+        this.reduction2emeadhere = reduction2emeadhere;
+        this.reduction3andplusadhere = reduction3andplusadhere;
+        this.lateralite = lateralite;
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+
+
 
 
     public String getDate_adhesion() {
@@ -128,11 +162,11 @@ public class Adherent {
         this.nationalite = nationalite;
     }
 
-    public String getDate_naissance() {
+    public LocalDate getDate_naissance() {
         return date_naissance;
     }
 
-    public void setDate_naissance(String date_naissance) {
+    public void setDate_naissance(LocalDate date_naissance) {
         this.date_naissance = date_naissance;
     }
 
@@ -167,4 +201,31 @@ public class Adherent {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    public double getCotisation() {
+        return cotisation;
+    }
+
+    public void setCotisation(double cotisation) {
+        this.cotisation = cotisation;
+    }
+
+    public void setHasAssurance(boolean hasAssurance) {
+        this.hasAssurance = hasAssurance;
+    }
+
+    public boolean isHasAssurance() {
+        return hasAssurance;
+    }
+
+    public boolean isReduction2emeadhere() {
+        return reduction2emeadhere;
+    }
+
+    public boolean isReduction3andplusadhere() {
+        return reduction3andplusadhere;
+    }
+
+
+
 }

@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadher.matos.interfaces;
+package fr.nimamoums.gestadher.materiel.interfaces;
 
 public abstract class Arme implements Louable {
 

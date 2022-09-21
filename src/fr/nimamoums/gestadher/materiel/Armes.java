@@ -1,13 +1,13 @@
-package fr.nimamoums.gestadher.matos;
+package fr.nimamoums.gestadher.materiel;
 
-import fr.nimamoums.gestadher.matos.interfaces.Arme;
-import fr.nimamoums.gestadher.matos.interfaces.Louable;
+import fr.nimamoums.gestadher.materiel.interfaces.Arme;
+import fr.nimamoums.gestadher.materiel.interfaces.Louable;
 
 public class Armes extends Arme implements Louable {
 
     @Override
     public String nom() {
-        return null;
+        return "Armes";
     }
 
     @Override

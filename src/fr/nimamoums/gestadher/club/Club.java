@@ -2,6 +2,8 @@ package fr.nimamoums.gestadher.club;
 
 public class Club {
 
+    private int id;
+
     private String nom;
     private String adresse;
     private String Contact;
@@ -18,6 +20,10 @@ public class Club {
         this.site = site;
     }
 
+
+    public int getClubId() {
+        return id;
+    }
 
     public String getNom() {
         return nom;

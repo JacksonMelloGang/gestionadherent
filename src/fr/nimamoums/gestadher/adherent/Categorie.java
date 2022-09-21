@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadher.adherents;
+package fr.nimamoums.gestadher.adherent;
 
 public class Categorie {
 
@@ -12,15 +12,15 @@ public class Categorie {
 
     private String annee_max;
 
-
+    private double cotisation;
 
     public Categorie( String catID, String nom, String code, String annee_min, String annee_max){
 
         this.catID = catID;
-        this.setNom(nom);
-        this.setCode(code);
-        this.setAnnee_min(annee_min);
-        this.setAnnee_max(annee_max);
+        this.nom = nom;
+        this.code = code;
+        this.annee_min = annee_min;
+        this.annee_max = annee_max;
     }
 
 
