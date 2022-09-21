@@ -1,12 +1,13 @@
 package fr.nimamoums.gestadher.adherent;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class GestionAdherents {
 
-    private static List<Adherent> adherentList = new ArrayList<>();
+    private static final List<Adherent> adherentList = new ArrayList<>();
     private static HashMap<Adherent, Integer> adherent_tarif = new HashMap<>();
 
     public static HashMap<Adherent, Integer> getAdherent_tarif() {
@@ -34,6 +35,8 @@ public class GestionAdherents {
     }
 
     public static List<Adherent> getListofAdherentByFile(){
+
+
 
         return null;
     }

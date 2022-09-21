@@ -1,9 +1,10 @@
 package fr.nimamoums.gestadher.club;
 
+import fr.nimamoums.gestadher.adherent.GestionAdherents;
+
 public class Club {
 
     private int id;
-
     private String nom;
     private String adresse;
     private String Contact;
@@ -11,18 +12,25 @@ public class Club {
     private String mail;
     private String site;
 
-    public Club(String nom, String adresse, String contact, String tel, String mail, String site){
+    public Club(int id, String nom, String adresse, String contact, String tel, String mail, String site){
+        this.id = id;
         this.nom = nom;
         this.adresse = adresse;
         this.Contact = contact;
         this.tel = tel;
         this.mail = mail;
         this.site = site;
+
+        GestionClubs.addClub(this);
     }
 
 
     public int getClubId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
