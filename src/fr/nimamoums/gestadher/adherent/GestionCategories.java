@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -56,14 +57,58 @@ public class GestionCategories {
     }
 
 
+
     public static boolean savelistintoxmlfile(){
 
-        // create a club.xml file and convert list into xml content and save it into file
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
+            Document document = documentBuilder.parse(new FileInputStream("./data/categorie.xml"));
 
+            Element root = document.getDocumentElement();
+
+            for(Categorie categorie : categorieList){
+                Element clubElement = document.createElement("categorie");
+                clubElement.setAttribute("id", String.valueOf(categorie.getCatID()));
+
+                Element clubNameElement = document.createElement("nom");
+                clubNameElement.setTextContent(categorie.getNom());
+
+                Element clubCodeElement = document.createElement("code");
+                clubCodeElement.setTextContent(categorie.getCode());
+
+                Element clubAnneeMinElement = document.createElement("annee_min");
+                clubAnneeMinElement.setTextContent(categorie.getAnnee_min());
+
+                Element clubAnneeMaxElement = document.createElement("annee_max");
+                clubAnneeMaxElement.setTextContent(categorie.getAnnee_max());
+
+                clubElement.appendChild(clubNameElement);
+                clubElement.appendChild(clubCodeElement);
+                clubElement.appendChild(clubAnneeMinElement);
+                clubElement.appendChild(clubAnneeMaxElement);
+
+                root.appendChild(clubElement);
+            }
+
+            DOMSource source = new DOMSource(document);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty("indent", "yes");
+
+            StreamResult result = new StreamResult("./data/categorie.xml");
+            transformer.transform(source, result);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
+            throw new RuntimeException(e);
+        }
 
         return false;
     }
+
+
 
 
     /**
@@ -77,7 +122,7 @@ public class GestionCategories {
      * Read clubs.xml file located  <strong>in the same directory as the jar file</strong> + /data
      **/
     public static int loadlistfromxmlfile(){
-        // load xml file and convert it into list of club
+        // load xml file and convert it into list of categorie
         File file = new File("./data/categorie.xml");
         try {
             // check if /data folder exists, otherwise create it
@@ -115,7 +160,7 @@ public class GestionCategories {
                 String annee_max = cat_xml.getElementsByTagName("annee_max").item(0).getTextContent();
 
                 Categorie categorie_obj = new Categorie(catid, nom, cat_code, annee_min, annee_max);
-                //Club club_obj = new Club(clubid, nom, adresse, contact, tel, mail, site);
+                //Categorie club_obj = new Categorie(clubid, nom, adresse, contact, tel, mail, site);
             }
 
 
@@ -127,7 +172,7 @@ public class GestionCategories {
     }
 
     public static boolean createxmlfile(){
-        // create a club.xml file in data/ folder
+        // create a categorie.xml file in data/ folder
         File file = new File("./data/categorie.xml");
 
         if(!file.getParentFile().exists()){

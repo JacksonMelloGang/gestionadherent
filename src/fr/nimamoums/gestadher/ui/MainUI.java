@@ -1,6 +1,7 @@
 package fr.nimamoums.gestadher.ui;
 
 import fr.nimamoums.gestadher.adherent.GestionCategories;
+import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
 
 import javax.swing.*;
@@ -51,6 +52,13 @@ public class MainUI {
 
     public static void main(String[] args) {
         GestionCategories.createxmlfile();
+
+        new Club(0, "Did", "7 Pompier", "Sus", "06577523", "aa@aaa.fr", "aa.fr");
+
         GestionClubs.createclubxmlfile();
+        GestionClubs.savelistintoxmlfile();
+
+        int aa = GestionClubs.getClubList().size();
+        System.out.println(aa);
     }
 }

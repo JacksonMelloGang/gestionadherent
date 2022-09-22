@@ -66,13 +66,52 @@ public class GestionClubs {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-            Document document = documentBuilder.parse(new FileInputStream("src\\fr\\nimamoums\\gestadher\\club\\clubs.xml"));
+            Document document = documentBuilder.parse(new FileInputStream("./data/clubs.xml"));
 
             Element root = document.getDocumentElement();
 
+            for(Club club : clubList){
+                Element clubElement = document.createElement("club");
+                clubElement.setAttribute("id", String.valueOf(club.getClubId()));
 
+                Element clubNameElement = document.createElement("clubName");
+                clubNameElement.setTextContent(club.getNom());
 
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+                Element clubContactElement = document.createElement("contact");
+                clubContactElement.setTextContent(club.getContact());
+
+                Element clubAddressElement = document.createElement("adresse");
+                clubAddressElement.setTextContent(club.getAdresse());
+
+                Element clubPhoneElement = document.createElement("tel");
+                clubPhoneElement.setTextContent(club.getAdresse());
+
+                Element clubEmailElement = document.createElement("mail");
+                clubEmailElement.setTextContent(club.getMail());
+
+                Element clubSiteElement = document.createElement("site");
+                clubSiteElement.setTextContent(club.getSite());
+
+                clubElement.appendChild(clubNameElement);
+                clubElement.appendChild(clubContactElement);
+                clubElement.appendChild(clubAddressElement);
+                clubElement.appendChild(clubPhoneElement);
+                clubElement.appendChild(clubEmailElement);
+                clubElement.appendChild(clubSiteElement);
+
+                root.appendChild(clubElement);
+            }
+
+            DOMSource source = new DOMSource(document);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty("indent", "yes");
+
+            StreamResult result = new StreamResult("./data/clubs.xml");
+            transformer.transform(source, result);
+
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
             throw new RuntimeException(e);
         }
 
