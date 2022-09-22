@@ -30,6 +30,11 @@ public class GestionClubs {
         return clubList;
     }
 
+    /**
+     *
+     * Add Club into clubList and save the list of clubs in a xml file
+     * Auto check if the id is not already used, if yes then set the id to the next available id
+     * **/
     public static void addClub(Club club) {
         int latestclubid = 1;
 
@@ -41,6 +46,8 @@ public class GestionClubs {
 
         club.setId(latestclubid);
         clubList.add(club);
+
+        savelistintoxmlfile();
     }
 
     public void removeClub(Club club) {
