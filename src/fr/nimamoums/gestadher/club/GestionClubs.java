@@ -17,6 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +62,21 @@ public class GestionClubs {
 
     public static boolean savelistintoxmlfile(){
 
-            // create a club.xml file and convert list into xml content and save it into file
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document document = documentBuilder.parse(new FileInputStream("src\\fr\\nimamoums\\gestadher\\club\\clubs.xml"));
+
+            Element root = document.getDocumentElement();
 
 
 
-            return false;
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
     }
 
 
