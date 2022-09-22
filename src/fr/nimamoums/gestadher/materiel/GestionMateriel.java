@@ -2,18 +2,18 @@ package fr.nimamoums.gestadher.materiel;
 
 import fr.nimamoums.gestadher.materiel.interfaces.Arme;
 import fr.nimamoums.gestadher.materiel.interfaces.Masque;
-import fr.nimamoums.gestadher.materiel.interfaces.Veste;
+import fr.nimamoums.gestadher.materiel.interfaces.Protection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestionMateriel {
 
-    public static List<Veste> vesteList = new ArrayList<>();
+    public static List<Protection> vesteList = new ArrayList<>();
     public static List<Arme> armeList = new ArrayList<>();
     public static List<Masque> masqueList = new ArrayList<>();
 
-    public static void ajouterVeste(Veste veste) {
+    public static void ajouterVeste(Protection veste) {
         vesteList.add(veste);
     }
 
@@ -25,7 +25,7 @@ public class GestionMateriel {
         masqueList.add(masque);
     }
 
-    public static void supprimerVeste(Veste veste) {
+    public static void supprimerVeste(Protection veste) {
         vesteList.remove(veste);
     }
 
@@ -37,7 +37,7 @@ public class GestionMateriel {
         masqueList.remove(masque);
     }
 
-    public static List<Veste> getVestes() {
+    public static List<Protection> getVestes() {
         return vesteList;
     }
 

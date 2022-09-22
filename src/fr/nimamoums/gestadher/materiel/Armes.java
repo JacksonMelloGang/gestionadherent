@@ -12,7 +12,7 @@ public class Armes extends Arme implements Louable {
 
     @Override
     public double prix_location() {
-        return 0;
+        return 15;
     }
 
     @Override

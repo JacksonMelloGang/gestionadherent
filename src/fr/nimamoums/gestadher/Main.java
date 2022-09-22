@@ -6,9 +6,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        GestionClubs.createclubxmlfile();
+
         GestionClubs.loadlistfromxmlfile();
 
-        System.out.println(        GestionClubs.getClubList().size());
 
 
     }

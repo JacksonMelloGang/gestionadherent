@@ -7,17 +7,17 @@ public class KitDebutant extends Arme implements Louable {
 
     @Override
     public String nom() {
-        return null;
+        return "Kit Debutant";
     }
 
     @Override
     public double prix_location() {
-        return 0;
+        return 30;
     }
 
     @Override
     public double prix_caution() {
-        return 0;
+        return 80;
     }
 
 }

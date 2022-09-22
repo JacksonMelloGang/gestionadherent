@@ -1,22 +1,22 @@
 package fr.nimamoums.gestadher.materiel;
 
-import fr.nimamoums.gestadher.materiel.interfaces.Arme;
 import fr.nimamoums.gestadher.materiel.interfaces.Louable;
+import fr.nimamoums.gestadher.materiel.interfaces.Protection;
 
-public class Veste extends Arme implements Louable {
+public class VesteElectriqueSabre extends Protection implements Louable {
 
     @Override
     public String nom() {
-        return null;
+        return "Veste Electrique Sabre";
     }
 
     @Override
     public double prix_location() {
-        return 0;
+        return 25;
     }
 
     @Override
     public double prix_caution() {
-        return 0;
+        return 230;
     }
 }
