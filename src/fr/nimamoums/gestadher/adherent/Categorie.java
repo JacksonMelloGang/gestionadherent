@@ -2,7 +2,7 @@ package fr.nimamoums.gestadher.adherent;
 
 public class Categorie {
 
-    private String catID;
+    private int catId;
 
     private String nom;
 
@@ -14,18 +14,24 @@ public class Categorie {
 
     private double cotisation;
 
-    public Categorie( String catID, String nom, String code, String annee_min, String annee_max){
+    public Categorie(int catid, String nom, String code, String annee_min, String annee_max){
 
-        this.catID = catID;
+        this.catId = catid;
         this.nom = nom;
         this.code = code;
         this.annee_min = annee_min;
         this.annee_max = annee_max;
+
+        GestionCategories.addCategorie(this);
     }
 
 
-    public String getCatID() {
-        return catID;
+    public int getCatID() {
+        return catId;
+    }
+
+    public void setCatID(int catId) {
+        this.catId = catId;
     }
 
     public String getNom() {

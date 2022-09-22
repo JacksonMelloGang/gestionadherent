@@ -1,5 +1,8 @@
 package fr.nimamoums.gestadher.ui;
 
+import fr.nimamoums.gestadher.adherent.GestionCategories;
+import fr.nimamoums.gestadher.club.GestionClubs;
+
 import javax.swing.*;
 
 public class MainUI {
@@ -10,8 +13,6 @@ public class MainUI {
     private JTextField textField3;
     private JTextField textField4;
     private JTextField textField5;
-    private JComboBox comboBox1;
-    private JButton button1;
     private JTextField textField6;
     private JTextField textField7;
     private JTextField textField8;
@@ -24,6 +25,21 @@ public class MainUI {
     private JCheckBox compétitiveCheckBox;
     private JTextField textField12;
     private JButton afficherButton;
+    private JList list1;
+    private JTextField textField11;
+    private JTextField textField13;
+    private JTextField textField14;
+    private JTextField textField15;
+    private JTextField textField16;
+    private JTextField textField17;
+    private JComboBox comboBox1;
+    private JButton supprimerButton;
+    private JButton modifierButton;
+    private JButton ajouterButton;
+    private JComboBox comboBox2;
+    private JTextField textField18;
+    private JComboBox comboBox3;
+    private JCheckBox checkBox1;
 
     public MainUI(){
         JFrame frame = new JFrame("MainUI");
@@ -34,6 +50,7 @@ public class MainUI {
     }
 
     public static void main(String[] args) {
-        new MainUI();
+        GestionCategories.createxmlfile();
+        GestionClubs.createclubxmlfile();
     }
 }
