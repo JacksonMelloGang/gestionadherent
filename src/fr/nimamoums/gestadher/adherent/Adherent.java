@@ -1,8 +1,9 @@
 package fr.nimamoums.gestadher.adherent;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Adherent {
+public class Adherent implements Serializable {
 
     private int adherentId;
     private String nom;
@@ -17,7 +18,7 @@ public class Adherent {
     private String tel;
 
     private String mail;
-    private String date_adhesion;
+    private LocalDate date_adhesion;
     private String pratique;
 
     private double cotisation;
@@ -31,7 +32,13 @@ public class Adherent {
     //////////////////////////////////////////////////////////////////////////
 
 
-    public Adherent(int adherentId, String nom, String nom_naissance, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+        for(Adherent adherent : GestionAdherents.getAdherents()){
+            if(adherent.getAdherentId() == adherentId){
+                adherentId++;
+            }
+        }
+
         this.adherentId = adherentId;
         this.nom = nom;
         this.nom_naissance = nom_naissance;
@@ -44,16 +51,24 @@ public class Adherent {
         this.code_postal = code_postal;
         this.tel = tel;
         this.mail = mail;
-        this.date_adhesion = date_adhesion;
+        this.date_adhesion =  LocalDate.now();
         this.pratique = pratique;
         this.cotisation = cotisation;
         this.hasAssurance = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
         this.reduction3andplusadhere = reduction3andplusadhere;
         this.lateralite = lateralite;
+
+        GestionAdherents.addAdherent(this);
     }
 
-    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, LocalDate date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+        for(Adherent adherent : GestionAdherents.getAdherents()){
+            if(adherent.getAdherentId() == adherentId){
+                adherentId++;
+            }
+        }
+
         this.adherentId = adherentId;
         this.nom = nom;
         this.prenom = prenom;
@@ -65,13 +80,15 @@ public class Adherent {
         this.code_postal = code_postal;
         this.tel = tel;
         this.mail = mail;
-        this.date_adhesion = date_adhesion;
+        this.date_adhesion =  LocalDate.now();
         this.pratique = pratique;
         this.cotisation = cotisation;
         this.hasAssurance = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
         this.reduction3andplusadhere = reduction3andplusadhere;
         this.lateralite = lateralite;
+
+        GestionAdherents.addAdherent(this);
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -79,11 +96,11 @@ public class Adherent {
 
 
 
-    public String getDate_adhesion() {
+    public LocalDate getDate_adhesion() {
         return date_adhesion;
     }
 
-    public void setDate_adhesion(String date_adhesion) {
+    public void setDate_adhesion(LocalDate date_adhesion) {
         this.date_adhesion = date_adhesion;
     }
 
@@ -225,7 +242,5 @@ public class Adherent {
     public boolean isReduction3andplusadhere() {
         return reduction3andplusadhere;
     }
-
-
 
 }

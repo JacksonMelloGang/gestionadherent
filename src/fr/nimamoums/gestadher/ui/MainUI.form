@@ -30,7 +30,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="name_family_name"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_name_family_name"/>
                 </properties>
               </component>
               <component id="d87b" class="javax.swing.JTextField" binding="textField1" default-binding="true">
@@ -46,7 +46,7 @@
                   <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="name"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_name"/>
                 </properties>
               </component>
               <component id="42f09" class="javax.swing.JLabel">
@@ -54,7 +54,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="date_birth"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_date_birth"/>
                 </properties>
               </component>
               <component id="eeaf4" class="javax.swing.JTextField" binding="textField3" default-binding="true">
@@ -70,7 +70,7 @@
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="sexuality"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_sexuality"/>
                 </properties>
               </component>
               <component id="136cc" class="javax.swing.JTextField" binding="textField5" default-binding="true">
@@ -86,7 +86,7 @@
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="city_country_birth"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_city_country_birth"/>
                 </properties>
               </component>
               <component id="9d584" class="javax.swing.JLabel">
@@ -94,7 +94,7 @@
                   <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="nationality"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_nationality"/>
                 </properties>
               </component>
               <component id="46fed" class="javax.swing.JLabel">
@@ -118,7 +118,7 @@
                   <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="city_pc"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_city_pc"/>
                 </properties>
               </component>
               <component id="c8798" class="javax.swing.JLabel">
@@ -150,7 +150,7 @@
                   <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="weapon"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="weapons"/>
                 </properties>
               </component>
               <component id="c8be0" class="javax.swing.JCheckBox" binding="fleuretCheckBox" default-binding="true">
@@ -182,7 +182,7 @@
                   <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="pratique"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_pratique"/>
                 </properties>
               </component>
               <component id="b3ff1" class="javax.swing.JCheckBox" binding="loisirCheckBox" default-binding="true">
