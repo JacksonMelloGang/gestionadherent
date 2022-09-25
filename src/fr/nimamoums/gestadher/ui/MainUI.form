@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fr.nimamoums.gestadher.ui.MainUI">
-  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1007" height="496"/>
+      <xy x="20" y="20" width="1278" height="496"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <tabbedpane id="3f9d1" binding="tabbedPane1" default-binding="true">
         <constraints>
-          <grid row="0" column="0" row-span="8" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="10" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="7865a" layout-manager="GridLayoutManager" row-count="8" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="7865a" binding="adhr_panel" layout-manager="GridLayoutManager" row-count="8" column-count="8" same-size-horizontally="false" same-size-vertically="true" hgap="10" vgap="10">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Adherents"/>
             </constraints>
             <properties/>
-            <border type="none"/>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+            <border type="line" title-justification="2"/>
             <children>
               <component id="3ec74" class="javax.swing.JLabel">
                 <constraints>
@@ -39,7 +42,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="3dca4" class="javax.swing.JLabel">
                 <constraints>
@@ -63,7 +68,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="123da" class="javax.swing.JLabel">
                 <constraints>
@@ -79,7 +86,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="72604" class="javax.swing.JLabel">
                 <constraints>
@@ -111,7 +120,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="61fed" class="javax.swing.JLabel">
                 <constraints>
@@ -135,7 +146,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="34388" class="javax.swing.JLabel">
                 <constraints>
@@ -153,7 +166,7 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="weapons"/>
                 </properties>
               </component>
-              <component id="c8be0" class="javax.swing.JCheckBox" binding="fleuretCheckBox" default-binding="true">
+              <component id="c8be0" class="javax.swing.JCheckBox" binding="cH_fleuret">
                 <constraints>
                   <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -161,7 +174,7 @@
                   <text value="Fleuret"/>
                 </properties>
               </component>
-              <component id="9fb71" class="javax.swing.JCheckBox" binding="sabreCheckBox" default-binding="true">
+              <component id="9fb71" class="javax.swing.JCheckBox" binding="cH_sabre">
                 <constraints>
                   <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -169,7 +182,7 @@
                   <text value="Sabre"/>
                 </properties>
               </component>
-              <component id="481f4" class="javax.swing.JCheckBox" binding="epéeCheckBox" default-binding="true">
+              <component id="481f4" class="javax.swing.JCheckBox" binding="cH_sword">
                 <constraints>
                   <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -182,10 +195,10 @@
                   <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_pratique"/>
+                  <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_actpratique"/>
                 </properties>
               </component>
-              <component id="b3ff1" class="javax.swing.JCheckBox" binding="loisirCheckBox" default-binding="true">
+              <component id="b3ff1" class="javax.swing.JCheckBox" binding="cH_loisir">
                 <constraints>
                   <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -207,7 +220,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="838a5" class="javax.swing.JLabel">
                 <constraints>
@@ -231,7 +246,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="df6a4" class="javax.swing.JTextField" binding="textField7" default-binding="true">
                 <constraints>
@@ -239,7 +256,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="97b47" class="javax.swing.JTextField" binding="textField8" default-binding="true">
                 <constraints>
@@ -247,7 +266,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="9f700" class="javax.swing.JTextField" binding="textField4" default-binding="true">
                 <constraints>
@@ -255,7 +276,9 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
               <component id="6ae30" class="javax.swing.JTextField" binding="textField2" default-binding="true">
                 <constraints>
@@ -263,9 +286,11 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                </properties>
               </component>
-              <component id="a3bfc" class="javax.swing.JCheckBox" binding="compétitiveCheckBox" default-binding="true">
+              <component id="a3bfc" class="javax.swing.JCheckBox" binding="cH_competitive">
                 <constraints>
                   <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -281,11 +306,13 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_cat"/>
                 </properties>
               </component>
-              <component id="fb761" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+              <component id="fb761" class="javax.swing.JComboBox" binding="cBx_categorie">
                 <constraints>
                   <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <model/>
+                </properties>
               </component>
               <component id="5c404" class="javax.swing.JLabel">
                 <constraints>
@@ -295,32 +322,24 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_ass"/>
                 </properties>
               </component>
-              <component id="ff33d" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+              <component id="ff33d" class="javax.swing.JCheckBox" binding="assuréCheckBox" default-binding="true">
                 <constraints>
                   <grid row="7" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="CheckBox"/>
+                  <text value="Assuré"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <grid id="1e729" layout-manager="GridLayoutManager" row-count="4" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="1e729" layout-manager="GridLayoutManager" row-count="2" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="10" vgap="10">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Clubs"/>
             </constraints>
             <properties/>
-            <border type="none"/>
+            <border type="line"/>
             <children>
-              <component id="4645b" class="javax.swing.JList" binding="list1" default-binding="true">
-                <constraints>
-                  <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
               <component id="1a5fa" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -417,6 +436,14 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="club_contact"/>
                 </properties>
               </component>
+              <component id="4645b" class="javax.swing.JList" binding="list1" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
             </children>
           </grid>
           <splitpane id="2a2a4">
@@ -424,50 +451,28 @@
               <tabbedpane title="Matériel"/>
             </constraints>
             <properties/>
-            <border type="none"/>
+            <border type="line"/>
             <children/>
           </splitpane>
         </children>
       </tabbedpane>
-      <component id="da081" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="da081" class="javax.swing.JComboBox" binding="cBx_listentities">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="d7fda" class="javax.swing.JButton" binding="supprimerButton" default-binding="true">
-        <constraints>
-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Supprimer"/>
-        </properties>
-      </component>
-      <component id="a74cf" class="javax.swing.JButton" binding="modifierButton" default-binding="true">
-        <constraints>
-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Modifier"/>
-        </properties>
-      </component>
-      <component id="d7bb3" class="javax.swing.JButton" binding="ajouterButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Ajouter"/>
+          <model/>
         </properties>
       </component>
       <component id="dcfc7" class="javax.swing.JSeparator">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
-      <component id="b945f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+      <component id="b945f" class="javax.swing.JComboBox" binding="cBx_filter_searchby">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <model/>
@@ -475,19 +480,59 @@
       </component>
       <component id="9638" class="javax.swing.JLabel">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="search_by"/>
         </properties>
       </component>
-      <component id="a077d" class="javax.swing.JTextField" binding="textField18" default-binding="true">
+      <component id="a077d" class="javax.swing.JTextField" binding="tF_filter_search">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties/>
+      </component>
+      <component id="d7fda" class="javax.swing.JButton" binding="bTn_del">
+        <constraints>
+          <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Supprimer"/>
+        </properties>
+      </component>
+      <component id="a74cf" class="javax.swing.JButton" binding="bTn_edit">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Modifier"/>
+        </properties>
+      </component>
+      <component id="d7bb3" class="javax.swing.JButton" binding="bTn_add">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Ajouter"/>
+        </properties>
+      </component>
+      <component id="741ca" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Numéro Identifiant&#10;"/>
+        </properties>
+      </component>
+      <component id="7c871" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="0000"/>
+        </properties>
       </component>
     </children>
   </grid>

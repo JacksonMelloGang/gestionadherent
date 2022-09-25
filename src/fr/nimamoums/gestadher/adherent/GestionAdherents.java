@@ -2,12 +2,12 @@ package fr.nimamoums.gestadher.adherent;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
 
 public class GestionAdherents {
 
-    private static List<Adherent> adherentList = new ArrayList<>();
+    private static List<Adherent> adherentList = null;
 
     public static void setAdherentList(List<Adherent> adherentList) {
         GestionAdherents.adherentList = adherentList;
@@ -22,8 +22,8 @@ public class GestionAdherents {
     public static Adherent getAdherentByIndex(int Adherentid){
         Adherent adherent = null;
         int i = 0;
-        while(i < adherentList.size() && adherent == null){
-            if(adherentList.get(i).getAdherentId() == Adherentid){
+        while (i < adherentList.size() && adherent == null) {
+            if (adherentList.get(i).getAdherentId() == Adherentid) {
                 adherent = adherentList.get(i);
             }
             i++;
@@ -32,7 +32,50 @@ public class GestionAdherents {
         return adherent;
     }
 
-    public static int saveAdherentIntoFile(){
+    public static Adherent getAdherentByName(String name) {
+        Adherent adherent = null;
+        int i = 0;
+        while (i < adherentList.size() && adherent == null) {
+            if (adherentList.get(i).getNom().equalsIgnoreCase(name)) {
+                adherent = adherentList.get(i);
+            }
+            i++;
+        }
+
+        return adherent;
+    }
+
+    public static Adherent getAdherentByFirstName(String name) {
+        Adherent adherent = null;
+        int i = 0;
+        while (i < adherentList.size() && adherent == null) {
+            if (adherentList.get(i).getPrenom().equalsIgnoreCase(name)) {
+                adherent = adherentList.get(i);
+            }
+            i++;
+        }
+
+        return adherent;
+    }
+
+    public static int saveAdherentsIntoFile() {
+        try {
+            File file = new File("./data/adherents.bin");
+            if(!file.getParentFile().exists()){
+                file.getParentFile().mkdir();
+            }
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream(file));
+            objectInputStream.writeObject(adherentList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
         return 0;
     }
 
@@ -67,39 +110,28 @@ public class GestionAdherents {
         return 0;
     }
 
-    public static int saveListintoFile(){
 
-        try {
-            File file = new File("./data/adherents.bin");
-            if(!file.getParentFile().exists()){
-                file.getParentFile().mkdir();
-            }
 
-            if(!file.exists()){
-                file.createNewFile();
-            }
-
-            ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream(file));
-            objectInputStream.writeObject(adherentList);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
-
-        return 0;
-    }
-
-    public static void addAdherent(Adherent adherent){
+    public static void addAdherent(Adherent adherent) {
         adherentList.add(adherent);
 
-        saveListintoFile();
+        saveAdherentsIntoFile();
     }
 
-    public static void removeAdherent(Adherent adherent){
-        adherentList.remove(adherent);
+    public static boolean removeAdherent(Adherent adherent) {
+        return adherentList.remove(adherent);
     }
 
+    /**
+     * return a list of adherents,
+     * by default the list is null, and if the list is null, it will be loaded from the file
+     * adherent.bin
+     **/
     public static List<Adherent> getAdherents() {
+        if (adherentList == null) {
+            loadListofAdherentFromFile();
+        }
+
         return adherentList;
     }
 
@@ -109,5 +141,97 @@ public class GestionAdherents {
 
     public static boolean isAdherent(Adherent adherent){
         return adherentList.contains(adherent);
+    }
+
+    public static Collection<Adherent> search(String searchby, String criteria) {
+        List<Adherent> foundochurence = new ArrayList<>();
+        switch(searchby.toLowerCase()){
+            case "nom":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getNom().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "prenom":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getPrenom().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "id":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getAdherentId() == Integer.parseInt(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "mail":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getMail().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "tel":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getTel().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "adresse":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getAdresse().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "ville_naissance":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getPays_ville_naissance().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "codepostal":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getCode_postal().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "date_naissance":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getDate_naissance().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "sexe":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getGenre().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "nationalite":
+                for(Adherent adhr : adherentList){
+                    if(adhr.getNationalite().contains(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+            case "assurance":
+                for(Adherent adhr : adherentList){
+                    if(adhr.isHasAssurance() == Boolean.parseBoolean(criteria)){
+                        foundochurence.add(adhr);
+                    }
+                }
+                break;
+        }
+
+        return null;
     }
 }

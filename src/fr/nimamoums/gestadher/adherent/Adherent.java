@@ -29,40 +29,11 @@ public class Adherent implements Serializable {
 
     private boolean reduction3andplusadhere;
 
+    private double montant;
+
     //////////////////////////////////////////////////////////////////////////
 
-
-    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
-        for(Adherent adherent : GestionAdherents.getAdherents()){
-            if(adherent.getAdherentId() == adherentId){
-                adherentId++;
-            }
-        }
-
-        this.adherentId = adherentId;
-        this.nom = nom;
-        this.nom_naissance = nom_naissance;
-        this.prenom = prenom;
-        this.genre = genre;
-        this.nationalite = nationalite;
-        this.date_naissance = date_naissance;
-        this.pays_ville_naissance = pays_ville_naissance;
-        this.adresse = adresse;
-        this.code_postal = code_postal;
-        this.tel = tel;
-        this.mail = mail;
-        this.date_adhesion =  LocalDate.now();
-        this.pratique = pratique;
-        this.cotisation = cotisation;
-        this.hasAssurance = hasAssurance;
-        this.reduction2emeadhere = reduction2emeadhere;
-        this.reduction3andplusadhere = reduction3andplusadhere;
-        this.lateralite = lateralite;
-
-        GestionAdherents.addAdherent(this);
-    }
-
-    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, LocalDate date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite) {
+    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, LocalDate date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, double montant) {
         for(Adherent adherent : GestionAdherents.getAdherents()){
             if(adherent.getAdherentId() == adherentId){
                 adherentId++;
@@ -87,6 +58,7 @@ public class Adherent implements Serializable {
         this.reduction2emeadhere = reduction2emeadhere;
         this.reduction3andplusadhere = reduction3andplusadhere;
         this.lateralite = lateralite;
+        this.montant = 0;
 
         GestionAdherents.addAdherent(this);
     }
@@ -94,7 +66,13 @@ public class Adherent implements Serializable {
     //////////////////////////////////////////////////////////////////////////
 
 
+    public double getMontant() {
+        return montant;
+    }
 
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
 
     public LocalDate getDate_adhesion() {
         return date_adhesion;

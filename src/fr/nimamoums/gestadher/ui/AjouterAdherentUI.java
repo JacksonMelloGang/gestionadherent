@@ -2,6 +2,8 @@ package fr.nimamoums.gestadher.ui;
 
 import fr.nimamoums.gestadher.adherent.Adherent;
 import fr.nimamoums.gestadher.adherent.GestionAdherents;
+import fr.nimamoums.gestadher.club.Club;
+import fr.nimamoums.gestadher.club.GestionClubs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,23 +24,30 @@ public class AjouterAdherentUI extends JDialog {
     private JCheckBox mCheckBox;
     private JCheckBox assuréCheckBox;
     private JTextField tF_cp_city;
-    private JTextField textField4;
+    private JTextField tF_tel;
     private JTextField tF_mail;
-    private JComboBox comboBox1;
-    private JTextField textField10;
-    private JLabel tF_tel;
-    private JComboBox tF_armes;
-    private JComboBox cBx_praticite;
-    private JComboBox comboBox3;
+    private JComboBox cBx_locatedmatos;
+    private JTextField tF_montant;
+    private JLabel téléphoneLabel;
+    private JComboBox cBx_armes;
+    private JComboBox cBx_pratique;
+    private JComboBox cBx_club;
+    private JLabel lbl_status_adhr_add;
 
     public AjouterAdherentUI() {
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                try {
+                    onOK();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -82,14 +91,110 @@ public class AjouterAdherentUI extends JDialog {
         tF_date_birth.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                hidePlaceholder(e, "jj/mm/aaaa");
+                hidePlaceholder(e, "dd/mm/YYYY");
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                showPlaceholder(e, "jj/mm/aaaa");
+                showPlaceholder(e, "dd/mm/YYYY");
             }
         });
+        contentPane.addComponentListener(new ComponentAdapter() {
+        });
+    }
+
+    public static void main(String[] args) {
+        AjouterAdherentUI dialog = new AjouterAdherentUI();
+        for (Club club : GestionClubs.getClubList()) {
+            dialog.cBx_club.addItem(club.getClubNom());
+        }
+
+        dialog.setTitle("Ajouter un adhérent");
+        dialog.setBounds(100, 100, 800, 800);
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
+    }
+
+    @Override
+    public JPanel getContentPane() {
+        return contentPane;
+    }
+
+    public JButton getButtonOK() {
+        return buttonOK;
+    }
+
+    public JButton getButtonCancel() {
+        return buttonCancel;
+    }
+
+    public JTextField gettF_last_name() {
+        return tF_last_name;
+    }
+
+    public JTextField gettF_first_name() {
+        return tF_first_name;
+    }
+
+    public JTextField gettF_date_birth() {
+        return tF_date_birth;
+    }
+
+    public JTextField gettF_city_birth() {
+        return tF_city_birth;
+    }
+
+    public JTextField getTf_Nationalite() {
+        return tf_Nationalite;
+    }
+
+    public JTextField gettF_adress() {
+        return tF_adress;
+    }
+
+    public JCheckBox getfCheckBox() {
+        return fCheckBox;
+    }
+
+    public JCheckBox getmCheckBox() {
+        return mCheckBox;
+    }
+
+    public JCheckBox getAssuréCheckBox() {
+        return assuréCheckBox;
+    }
+
+    public JTextField gettF_cp_city() {
+        return tF_cp_city;
+    }
+
+    public JTextField gettF_tel() {
+        return tF_tel;
+    }
+
+    public JTextField gettF_mail() {
+        return tF_mail;
+    }
+
+    public JComboBox getcBx_locatedmatos() {
+        return cBx_locatedmatos;
+    }
+
+    public JTextField gettF_montant() {
+        return tF_montant;
+    }
+
+    public JLabel getTéléphoneLabel() {
+        return téléphoneLabel;
+    }
+
+    public JComboBox getcBx_armes() {
+        return cBx_armes;
+    }
+
+    public JComboBox getcBx_pratique() {
+        return cBx_pratique;
     }
 
     private void showPlaceholder(FocusEvent e, String s) {
@@ -106,61 +211,8 @@ public class AjouterAdherentUI extends JDialog {
         }
     }
 
-    private void onOK() {
-        // add your code here
-        for(Component component : contentPane.getComponents()){
-            if(component instanceof JTextField){
-                ((JTextField) component).setText(null);
-            }
-        }
-
-        String name = tF_last_name.getText();
-        String firstName = tF_first_name.getText();
-
-        String sexe = null;
-        if(fCheckBox.isSelected()){
-            sexe = "M";
-        }else {
-            sexe = "F";
-        }
-        boolean assure = assuréCheckBox.isSelected();
-
-        String dateBirth = tF_date_birth.getText();
-        String cityBirth = tF_city_birth.getText();
-
-        String nationality = tf_Nationalite.getText();
-
-        String address = tF_adress.getText();
-        String cpCity = tF_cp_city.getText();
-
-        String tel = tF_tel.getText();
-        String mail = tF_mail.getText();
-
-        String pratique = (String) cBx_praticite.getSelectedItem();
-        String armes = tF_armes.getSelectedItem().toString();
-
-        new Adherent(
-                GestionAdherents.getAdherents().size(),
-                name,
-                firstName,
-                sexe,
-                nationality,
-                LocalDate.of(Integer.parseInt(dateBirth.split("/")[2]), Integer.parseInt(dateBirth.split("/")[1]), Integer.parseInt(dateBirth.split("/")[0])),
-                cityBirth,
-                address,
-                cpCity,
-                tel,
-                mail,
-                pratique,
-                0,
-                false,
-                false,
-                false,
-                "Gaucher"
-                );
-
-
-        //dispose();
+    public JComboBox getcBx_club() {
+        return cBx_club;
     }
 
     private void onCancel() {
@@ -168,11 +220,202 @@ public class AjouterAdherentUI extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        AjouterAdherentUI dialog = new AjouterAdherentUI();
-        dialog.setTitle("Ajouter un adhérent");
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+    private void onOK() throws InterruptedException {
+        // add your code here
+
+        String name = "";
+        String firstName = "";
+        String sexe = "";
+
+        LocalDate dateBirth = null;
+        String cityBirth = "";
+        String nationality = "";
+        String address = "";
+        String cpCity = "";
+        String tel = "";
+        String mail = "";
+        String locatedMatos = "";
+        String armes = "";
+        String act_pratique = "";
+        String club = "";
+        double montant = 0;
+        boolean isAssure = false;
+
+        if (tF_last_name.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le nom de l'adhérent");
+            tF_last_name.requestFocus();
+            return;
+        }
+
+        if (tF_first_name.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le prénom de l'adhérent");
+            tF_first_name.requestFocus();
+            return;
+        }
+
+        if (!mCheckBox.isSelected() && !fCheckBox.isSelected()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le sexe de l'adhérent");
+            mCheckBox.requestFocus();
+            return;
+        }
+
+        if (tF_date_birth.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la date de naissance de l'adhérent");
+            tF_date_birth.requestFocus();
+            return;
+        }
+
+        if (tF_city_birth.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la ville de naissance de l'adhérent");
+            tF_city_birth.requestFocus();
+            return;
+        }
+
+        if (tf_Nationalite.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la nationalité de l'adhérent");
+            tf_Nationalite.requestFocus();
+            return;
+        }
+
+        if (tF_adress.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir l'adresse de l'adhérent");
+            tF_adress.requestFocus();
+            return;
+        }
+
+        if (tF_cp_city.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le code postal et la ville de l'adhérent");
+            tF_cp_city.requestFocus();
+            return;
+        }
+
+        if (tF_tel.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le numéro de téléphone de l'adhérent");
+            tF_tel.requestFocus();
+            return;
+        }
+
+        if (tF_mail.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir l'adresse mail de l'adhérent");
+            tF_mail.requestFocus();
+            return;
+        }
+        /**
+         if(tF_locatedMatos.getText().isEmpty()){
+         Toolkit.getDefaultToolkit().beep();
+         JOptionPane.showMessageDialog(this, "Veuillez saisir le matériel possédé par l'adhérent");
+         tF_locatedMatos.requestFocus();
+         return;
+         }
+         **/
+
+        if (cBx_armes.getSelectedItem().toString().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir les armes possédées par l'adhérent");
+            cBx_armes.requestFocus();
+            return;
+        }
+
+        if (cBx_pratique.getSelectedItem().toString().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir les activités pratiquées par l'adhérent");
+            cBx_pratique.requestFocus();
+            return;
+        }
+
+        if (cBx_club.getSelectedItem().toString().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le club de l'adhérent");
+            cBx_club.requestFocus();
+            return;
+        }
+
+        if (tF_montant.getText().isEmpty()) {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir le montant de l'adhésion de l'adhérent");
+            tF_montant.requestFocus();
+            return;
+        }
+
+
+        name = tF_last_name.getText();
+        firstName = tF_first_name.getText();
+
+        if (fCheckBox.isSelected()) {
+            sexe = "M";
+        } else {
+            sexe = "F";
+        }
+        boolean assure = assuréCheckBox.isSelected();
+
+        dateBirth = LocalDate.parse(tF_date_birth.getText());
+        cityBirth = tF_city_birth.getText();
+
+        nationality = tf_Nationalite.getText();
+
+        address = tF_adress.getText();
+        cpCity = tF_cp_city.getText();
+
+        tel = tF_tel.getText();
+        mail = tF_mail.getText();
+
+        act_pratique = (String) cBx_pratique.getSelectedItem();
+        armes = (String) cBx_armes.getSelectedItem();
+
+        int birthdate_year = Integer.parseInt(String.valueOf(dateBirth.getYear()));
+        int birthdate_month = Integer.parseInt(String.valueOf(dateBirth.getMonthValue()));
+        int birthdate_day = Integer.parseInt(String.valueOf(dateBirth.getDayOfMonth()));
+
+        montant = Integer.parseInt(tF_montant.getText());
+
+        new Adherent(
+                GestionAdherents.getAdherents().size(),
+                name,
+                firstName,
+                sexe,
+                nationality,
+                LocalDate.of(birthdate_year, birthdate_month, birthdate_day),
+                cityBirth,
+                address,
+                cpCity,
+                tel,
+                mail,
+                LocalDate.now(),
+                act_pratique,
+                0,
+                false,
+                false,
+                false,
+                "Gaucher",
+                montant
+        );
+
+        // Clean everything when the new adherent has been registered
+        for (Component component : contentPane.getComponents()) {
+            if (component instanceof JTextField) {
+                ((JTextField) component).setText(null);
+            }
+        }
+
+        // Reset the comboboxes
+        cBx_armes.setSelectedIndex(0);
+        cBx_pratique.setSelectedIndex(0);
+        cBx_club.setSelectedIndex(0);
+
+        lbl_status_adhr_add.setText("Adhérent ajouté avec succès");
+        lbl_status_adhr_add.setForeground(Color.GREEN);
+        Thread.sleep(1000);
+        lbl_status_adhr_add.setText("");
+        //dispose();
     }
 }

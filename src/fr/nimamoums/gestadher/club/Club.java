@@ -1,7 +1,5 @@
 package fr.nimamoums.gestadher.club;
 
-import fr.nimamoums.gestadher.adherent.GestionAdherents;
-
 public class Club {
 
     private int id;
@@ -20,8 +18,6 @@ public class Club {
         this.tel = tel;
         this.mail = mail;
         this.site = site;
-
-        GestionClubs.addClub(this);
     }
 
 
@@ -33,7 +29,7 @@ public class Club {
         this.id = id;
     }
 
-    public String getNom() {
+    public String getClubNom() {
         return nom;
     }
 
@@ -41,7 +37,7 @@ public class Club {
         this.nom = nom;
     }
 
-    public String getAdresse() {
+    public String getClubAdresse() {
         return adresse;
     }
 
@@ -49,7 +45,7 @@ public class Club {
         this.adresse = adresse;
     }
 
-    public String getContact() {
+    public String getClubContact() {
         return Contact;
     }
 
@@ -57,7 +53,7 @@ public class Club {
         Contact = contact;
     }
 
-    public String getTel() {
+    public String getClubTel() {
         return tel;
     }
 
@@ -65,7 +61,7 @@ public class Club {
         this.tel = tel;
     }
 
-    public String getMail() {
+    public String getClubMail() {
         return mail;
     }
 
@@ -73,7 +69,7 @@ public class Club {
         this.mail = mail;
     }
 
-    public String getSite() {
+    public String getClubSite() {
         return site;
     }
 

@@ -6,25 +6,169 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestionClubs {
 
-    static List<Club> clubList = new ArrayList<>();
+    private static List<Club> clubList = new ArrayList<>();
+
+    public static void createFile(){
+
+        File file = new File("./data/club.xml");
+        boolean foldersuccess = true;
+        boolean fileexists = false;
+
+        // check if data/ folder exists, if not create it
+        if (!file.getParentFile().exists()) {
+            foldersuccess = file.getParentFile().mkdirs();
+        }
+
+        // check if club.xml exists, if not create it
+        if(!file.exists() && foldersuccess){
+            try {
+                fileexists = file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(fileexists){
+            // add root info and node: 'clubs'
+            try {
+                // xml parser
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                // create xml metadata and add <clubs/> node
+                Document document = documentBuilder.newDocument();
+                Element rootElement = document.createElement("clubs");
+                document.appendChild(rootElement);
+
+                // write xml file
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource domSource = new DOMSource(document);
+                StreamResult streamResult = new StreamResult(file);
+                transformer.transform(domSource, streamResult);
+
+            } catch (ParserConfigurationException | TransformerException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public static boolean saveFile(){
+
+        // parse content of clubList into xml and save it into club.xml
+
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document document = documentBuilder.newDocument();
+            Element rootElement = document.createElement("clubs"); // <clubs>
+
+            for(Club club : getClubList()){
+                Element xclub = document.createElement("club");
+                xclub.setAttribute("id", String.valueOf(club.getClubId()));
+
+                Element xnom = document.createElement("clubName");
+                Element xcontact = document.createElement("contact");
+                Element xadresse = document.createElement("adresse");
+                Element xtelephone = document.createElement("tel");
+                Element xemail = document.createElement("mail");
+                Element xsite = document.createElement("site");
+
+                xnom.setTextContent(club.getClubNom());
+                xcontact.setTextContent(club.getClubContact());
+                xadresse.setTextContent(club.getClubAdresse());
+                xtelephone.setTextContent(club.getClubTel());
+                xemail.setTextContent(club.getClubMail());
+                xsite.setTextContent(club.getClubSite());
+
+                xclub.appendChild(xnom);
+                xclub.appendChild(xcontact);
+                xclub.appendChild(xadresse);
+                xclub.appendChild(xtelephone);
+                xclub.appendChild(xemail);
+                xclub.appendChild(xsite);
+
+                rootElement.appendChild(xclub);
+            }
+
+            document.appendChild(rootElement);
+
+            DOMSource source = new DOMSource(document);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty("indent", "yes");
+
+            StreamResult result = new StreamResult("./data/club.xml");
+            transformer.transform(source, result);
+
+        } catch (ParserConfigurationException | TransformerException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return false;
+    }
+
+    public static boolean loadFile(){
+
+        // parse into xml
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = null;
+        try {
+            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            Element root = document.createElement("clubs");
+            NodeList clubs = root.getElementsByTagName("club");
+
+
+            for(int i = 0; i < clubs.getLength(); i++){
+                Node node = clubs.item(i);
+
+                Element xclub = (Element) node;
+
+                int club_id = Integer.parseInt(xclub.getAttribute("id"));
+                String club_nom = xclub.getElementsByTagName("clubName").item(0).getTextContent();
+                String club_adresse = xclub.getElementsByTagName("adresse").item(0).getTextContent();
+                String club_contact = xclub.getElementsByTagName("contact").item(0).getTextContent();
+                String club_tel = xclub.getElementsByTagName("tel").item(0).getTextContent();
+                String club_mail = xclub.getElementsByTagName("mail").item(0).getTextContent();
+                String club_site = xclub.getElementsByTagName("site").item(0).getTextContent();
+
+                Club club = new Club(club_id, club_nom, club_adresse, club_contact, club_tel, club_mail, club_site);
+                GestionClubs.addClub(club);
+            }
+
+            return true;
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors du chargement du fichier club.xml\nTrackback: " + e.getStackTrace().toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        return false;
+    }
+
 
     public static List<Club> getClubList() {
         return clubList;
@@ -32,22 +176,18 @@ public class GestionClubs {
 
     /**
      *
-     * Add Club into clubList and save the list of clubs in a xml file
+     * Add Club into clubList
      * Auto check if the id is not already used, if yes then set the id to the next available id
      * **/
     public static void addClub(Club club) {
         int latestclubid = 1;
 
-        for(Club listclub : clubList){
-            if(listclub.getClubId() == club.getClubId()){
-                latestclubid++;
-            }
+        if(clubList.size() > 0){
+            latestclubid = clubList.size()+1;
         }
 
         club.setId(latestclubid);
         clubList.add(club);
-
-        savelistintoxmlfile();
     }
 
     public void removeClub(Club club) {
@@ -73,7 +213,7 @@ public class GestionClubs {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-            Document document = documentBuilder.parse(new FileInputStream("./data/clubs.xml"));
+            Document document = documentBuilder.parse(new FileInputStream("./data/club.xml"));
 
             Element root = document.getDocumentElement();
 
@@ -82,22 +222,22 @@ public class GestionClubs {
                 clubElement.setAttribute("id", String.valueOf(club.getClubId()));
 
                 Element clubNameElement = document.createElement("clubName");
-                clubNameElement.setTextContent(club.getNom());
+                clubNameElement.setTextContent(club.getClubNom());
 
                 Element clubContactElement = document.createElement("contact");
-                clubContactElement.setTextContent(club.getContact());
+                clubContactElement.setTextContent(club.getClubContact());
 
                 Element clubAddressElement = document.createElement("adresse");
-                clubAddressElement.setTextContent(club.getAdresse());
+                clubAddressElement.setTextContent(club.getClubAdresse());
 
                 Element clubPhoneElement = document.createElement("tel");
-                clubPhoneElement.setTextContent(club.getAdresse());
+                clubPhoneElement.setTextContent(club.getClubAdresse());
 
                 Element clubEmailElement = document.createElement("mail");
-                clubEmailElement.setTextContent(club.getMail());
+                clubEmailElement.setTextContent(club.getClubMail());
 
                 Element clubSiteElement = document.createElement("site");
-                clubSiteElement.setTextContent(club.getSite());
+                clubSiteElement.setTextContent(club.getClubSite());
 
                 clubElement.appendChild(clubNameElement);
                 clubElement.appendChild(clubContactElement);
@@ -115,7 +255,7 @@ public class GestionClubs {
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty("indent", "yes");
 
-            StreamResult result = new StreamResult("./data/clubs.xml");
+            StreamResult result = new StreamResult("./data/club.xml");
             transformer.transform(source, result);
 
         } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
@@ -138,7 +278,7 @@ public class GestionClubs {
      **/
      public static int loadlistfromxmlfile(){
         // load xml file and convert it into list of club
-        File file = new File("./data/clubs.xml");
+        File file = new File("./data/club.xml");
         try {
             // check if /data folder exists, otherwise create it
             if(!file.getParentFile().exists()){
@@ -193,9 +333,9 @@ public class GestionClubs {
         return 0;
     }
 
-    public static boolean createclubxmlfile(){
+    public static boolean createxmlfile(){
         // create a club.xml file in data/ folder
-        File file = new File("./data/clubs.xml");
+        File file = new File("./data/club.xml");
 
         if(!file.getParentFile().exists()){
             System.out.println("Folder data/ not found, creating it");
@@ -203,35 +343,33 @@ public class GestionClubs {
         }
 
         if(!file.exists()){
-            System.out.println("Creating clubs.xml");
+            System.out.println("Creating club.xml");
             try {
                 file.createNewFile();
+
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                Document document = documentBuilder.newDocument();
+                Node node = document.createElement("clubs");
+                document.appendChild(node);
+
+                //
+                DOMSource source = new DOMSource(document);
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                StreamResult result = new StreamResult(file);
+                transformer.transform(source, result);
+
+
                 return true;
-            } catch (IOException e) {
+            } catch (IOException | ParserConfigurationException | TransformerException e) {
+                System.out.println("Error while creating club.xml:\n" + e.getMessage());
                 throw new RuntimeException(e);
             }
         }
 
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document document = documentBuilder.newDocument();
-            Node node = document.createElement("clubs");
-            document.appendChild(node);
-
-            //
-            DOMSource source = new DOMSource(document);
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            StreamResult result = new StreamResult(file);
-            transformer.transform(source, result);
-
-            return true;
-        } catch (ParserConfigurationException | TransformerException e) {
-            System.out.println("Error while creating clubs.xml:\n" + e.getMessage());
-            return false;
-        }
+        return false;
     }
 }

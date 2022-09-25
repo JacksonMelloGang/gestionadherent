@@ -24,7 +24,7 @@ public class GestionCategories {
 
     private static final List<Categorie> categorieList = new ArrayList<>();
 
-    public static Categorie getCategorieByIndex(String Categorie_code){
+    public static Categorie getCategorieByCode(String Categorie_code){
         Categorie Categorie = null;
         int i = 0;
         while(i < categorieList.size() && Categorie == null){
@@ -35,13 +35,6 @@ public class GestionCategories {
         }
 
         return Categorie;
-    }
-
-    public static List<Categorie> getListofCategorieByFile(){
-
-
-
-        return null;
     }
 
     public static void addCategorie(Categorie categorie){
@@ -119,7 +112,7 @@ public class GestionCategories {
      * 3 = file not valid<br>
      * 4 = folder /data not found
      *
-     * Read clubs.xml file located  <strong>in the same directory as the jar file</strong> + /data
+     * Read club.xml file located  <strong>in the same directory as the jar file</strong> + /data
      **/
     public static int loadlistfromxmlfile(){
         // load xml file and convert it into list of categorie
@@ -184,33 +177,30 @@ public class GestionCategories {
             System.out.println("Creating categorie.xml");
             try {
                 file.createNewFile();
+
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                Document document = documentBuilder.newDocument();
+                Node node = document.createElement("categories");
+                document.appendChild(node);
+
+                //
+                DOMSource source = new DOMSource(document);
+
+                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                StreamResult result = new StreamResult(file);
+                transformer.transform(source, result);
+
                 return true;
-            } catch (IOException e) {
+            } catch (IOException | ParserConfigurationException | TransformerException e) {
+                System.out.println("Error while creating categorie.xml:\n" + e.getMessage());
                 throw new RuntimeException(e);
             }
         }
 
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document document = documentBuilder.newDocument();
-            Node node = document.createElement("categories");
-            document.appendChild(node);
-
-            //
-            DOMSource source = new DOMSource(document);
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            StreamResult result = new StreamResult(file);
-            transformer.transform(source, result);
-
-            return true;
-        } catch (ParserConfigurationException | TransformerException e) {
-            System.out.println("Error while creating categorie.xml:\n" + e.getMessage());
-            return false;
-        }
+        return false;
     }
 
 }
