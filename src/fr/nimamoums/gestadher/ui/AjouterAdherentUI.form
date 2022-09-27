@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="48" y="54" width="925" height="429"/>
+      <xy x="48" y="54" width="1046" height="505"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -59,7 +59,7 @@
           </component>
         </children>
       </grid>
-      <grid id="e3588" layout-manager="GridLayoutManager" row-count="8" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="100" vgap="10">
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="10" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="100" vgap="10">
         <margin top="10" left="0" bottom="10" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="true"/>
@@ -197,7 +197,7 @@
               <text value="M"/>
             </properties>
           </component>
-          <component id="cc473" class="javax.swing.JCheckBox" binding="assuréCheckBox" default-binding="true">
+          <component id="cc473" class="javax.swing.JCheckBox" binding="assureCheckBox" default-binding="true">
             <constraints>
               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -281,7 +281,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="bb791" class="javax.swing.JLabel">
             <constraints>
@@ -338,6 +340,54 @@
             </constraints>
             <properties>
               <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_club"/>
+            </properties>
+          </component>
+          <component id="90f41" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="secondmember"/>
+            </properties>
+          </component>
+          <component id="698db" class="javax.swing.JCheckBox" binding="cH_sndmember">
+            <constraints>
+              <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Oui"/>
+            </properties>
+          </component>
+          <component id="30636" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="thirdmemberandmore"/>
+            </properties>
+          </component>
+          <component id="32a8c" class="javax.swing.JCheckBox" binding="cH_thmember">
+            <constraints>
+              <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Oui"/>
+            </properties>
+          </component>
+          <component id="6ec6b" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_cat"/>
+            </properties>
+          </component>
+          <component id="6228c" class="javax.swing.JComboBox" binding="cBx_cat">
+            <constraints>
+              <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model/>
             </properties>
           </component>
         </children>

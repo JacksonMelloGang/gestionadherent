@@ -1,6 +1,8 @@
 package fr.nimamoums.gestadher.club;
 
-public class Club {
+import java.io.Serializable;
+
+public class Club implements Serializable {
 
     private int id;
     private String nom;
@@ -25,7 +27,7 @@ public class Club {
         return id;
     }
 
-    public void setId(int id) {
+    public void setClubId(int id) {
         this.id = id;
     }
 
@@ -33,7 +35,7 @@ public class Club {
         return nom;
     }
 
-    public void setNom(String nom) {
+    public void setClubNom(String nom) {
         this.nom = nom;
     }
 
@@ -41,7 +43,7 @@ public class Club {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setClubAdresse(String adresse) {
         this.adresse = adresse;
     }
 
@@ -49,7 +51,7 @@ public class Club {
         return Contact;
     }
 
-    public void setContact(String contact) {
+    public void setClubContact(String contact) {
         Contact = contact;
     }
 
@@ -57,7 +59,7 @@ public class Club {
         return tel;
     }
 
-    public void setTel(String tel) {
+    public void setClubTel(String tel) {
         this.tel = tel;
     }
 
@@ -65,7 +67,7 @@ public class Club {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public void setClubMail(String mail) {
         this.mail = mail;
     }
 
@@ -73,7 +75,7 @@ public class Club {
         return site;
     }
 
-    public void setSite(String site) {
+    public void setClubSite(String site) {
         this.site = site;
     }
 }

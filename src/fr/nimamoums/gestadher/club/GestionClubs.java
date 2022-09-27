@@ -17,8 +17,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GestionClubs {
@@ -82,7 +84,7 @@ public class GestionClubs {
             Document document = documentBuilder.newDocument();
             Element rootElement = document.createElement("clubs"); // <clubs>
 
-            for(Club club : getClubList()){
+            for(Club club : getClubs()){
                 Element xclub = document.createElement("club");
                 xclub.setAttribute("id", String.valueOf(club.getClubId()));
 
@@ -136,9 +138,9 @@ public class GestionClubs {
         DocumentBuilder documentBuilder = null;
         try {
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
+            Document document = documentBuilder.parse(new FileInputStream("./data/club.xml"));
 
-            Element root = document.createElement("clubs");
+            Element root = document.getDocumentElement();
             NodeList clubs = root.getElementsByTagName("club");
 
 
@@ -148,7 +150,7 @@ public class GestionClubs {
                 Element xclub = (Element) node;
 
                 int club_id = Integer.parseInt(xclub.getAttribute("id"));
-                String club_nom = xclub.getElementsByTagName("clubName").item(0).getTextContent();
+                String club_nom = xclub.getElementsByTagName("nom").item(0).getTextContent();
                 String club_adresse = xclub.getElementsByTagName("adresse").item(0).getTextContent();
                 String club_contact = xclub.getElementsByTagName("contact").item(0).getTextContent();
                 String club_tel = xclub.getElementsByTagName("tel").item(0).getTextContent();
@@ -163,6 +165,9 @@ public class GestionClubs {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erreur lors du chargement du fichier club.xml\nTrackback: " + e.getStackTrace().toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException | SAXException e) {
+            JOptionPane.showMessageDialog(null, "Erreur lors du chargement du fichier club.xml\nTrackback: " + e.getStackTrace().toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(e);
         }
 
 
@@ -170,7 +175,7 @@ public class GestionClubs {
     }
 
 
-    public static List<Club> getClubList() {
+    public static List<Club> getClubs() {
         return clubList;
     }
 
@@ -186,12 +191,87 @@ public class GestionClubs {
             latestclubid = clubList.size()+1;
         }
 
-        club.setId(latestclubid);
+        club.setClubId(latestclubid);
         clubList.add(club);
     }
 
-    public void removeClub(Club club) {
+    // remove club from clubList
+    public static void removeClub(Club club) {
         clubList.remove(club);
+    }
+
+    // edit club from clubList
+    public static void editClub(Club club) {
+        for(Club c : clubList){
+            if(c.getClubId() == club.getClubId()){
+                c.setClubNom(club.getClubNom());
+                c.setClubAdresse(club.getClubAdresse());
+                c.setClubContact(club.getClubContact());
+                c.setClubTel(club.getClubTel());
+                c.setClubMail(club.getClubMail());
+                c.setClubSite(club.getClubSite());
+            }
+        }
+    }
+
+    public static Collection<Object> search(String searchby, String search) {
+        List<Club> foundochurence = new ArrayList<>();
+        switch (searchby) {
+            case "nom":
+                for (Club club : clubList) {
+                    if (club.getClubNom().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+            case "adresse":
+                for (Club club : clubList) {
+                    if (club.getClubAdresse().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+            case "contact":
+                for (Club club : clubList) {
+                    if (club.getClubContact().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+            case "tel":
+                for (Club club : clubList) {
+                    if (club.getClubTel().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+            case "mail":
+                for (Club club : clubList) {
+                    if (club.getClubMail().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+            case "site":
+                for (Club club : clubList) {
+                    if (club.getClubSite().toLowerCase().contains(search.toLowerCase())) {
+                        foundochurence.add(club);
+                    }
+                }
+                break;
+        }
+
+
+        return null;
+    }
+
+    public static Club getClubsByName(String clubname) {
+        for(Club club : clubList){
+            if(club.getClubNom().equals(clubname)){
+                return club;
+            }
+        }
+        return null;
     }
 
     public Club getClubByIndex(int clubId){

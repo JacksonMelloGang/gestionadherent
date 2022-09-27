@@ -1,34 +1,38 @@
 package fr.nimamoums.gestadher.ui;
 
+import fr.nimamoums.gestadher.adherent.Adherent;
 import fr.nimamoums.gestadher.adherent.Categorie;
 import fr.nimamoums.gestadher.adherent.GestionAdherents;
 import fr.nimamoums.gestadher.adherent.GestionCategories;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
+import fr.nimamoums.gestadher.exception.FolderNotFoundException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
 
 public class MainUI {
     private JTabbedPane tabbedPane1;
     private JPanel panel1;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JTextField textField8;
-    private JTextField textField9;
-    private JTextField textField10;
+    private JTextField tF_name;
+    private JTextField tF_fstname;
+    private JTextField tF_birthdate;
+    private JTextField tF_city;
+    private JTextField tF_genre;
+    private JTextField tF_adr;
+    private JTextField tF_pc;
+    private JTextField tF_nationality;
+    private JTextField tF_tel;
+    private JTextField tF_mail;
     private JCheckBox cH_fleuret;
     private JCheckBox cH_sabre;
     private JCheckBox cH_sword;
     private JCheckBox cH_loisir;
     private JCheckBox cH_competitive;
-    private JTextField textField12;
-    private JButton afficherButton;
+    private JTextField tF_montant;
+    private JButton bTn_matosloc;
     private JList list1;
     private JTextField textField11;
     private JTextField textField13;
@@ -43,9 +47,14 @@ public class MainUI {
     private JComboBox cBx_filter_searchby;
     private JTextField tF_filter_search;
     private JComboBox cBx_categorie;
-    private JCheckBox assuréCheckBox;
+    private JCheckBox cH_assure;
     private JPanel adhr_panel;
+    private JLabel lBl_reduc;
+    private JLabel lBl_dateinc;
+
+
     private boolean editmode = false;
+    private int selectedentityid = 0;
 
     public MainUI() {
         JFrame frame = new JFrame("MainUI");
@@ -58,11 +67,16 @@ public class MainUI {
             cBx_categorie.addItem(categorie.getNom());
         }
 
+        for(Adherent adherent : GestionAdherents.getAdherents()){
+            cBx_listentities.addItem(adherent.getNom());
+        }
+
         ////////////////////////////////////////////////////////////////////////////////
         // Event Listeners
         ////////////////////////////////////////////////////////////////////////////////
         tabbedPane1.addChangeListener(e -> {
             setFilterSearchBy(tabbedPane1.getSelectedIndex());
+            setEntityList(tabbedPane1.getSelectedIndex());
         });
         bTn_del.addActionListener(e -> {
             onbTn_del();
@@ -106,14 +120,47 @@ public class MainUI {
         bTn_edit.addActionListener(e -> {
             onbTn_Adhredit(e);
         });
+        cBx_listentities.addActionListener(e -> {
+            oncBx_listentities(e);
+        });
+
+    }
+
+    private void setEntityList(int selectedIndex) {
+        cBx_listentities.removeAllItems();
+
+        switch(selectedIndex){
+            case 0:
+                for(Adherent adherent : GestionAdherents.getAdherents()){
+                    cBx_listentities.addItem(adherent.getNom());
+                }
+                break;
+            case 1:
+                for(Club club : GestionClubs.getClubs()){
+                    cBx_listentities.addItem(club.getClubNom());
+                }
+                break;
+            case 2:
+                for(Categorie categorie : GestionCategories.getCategories()){
+                    cBx_listentities.addItem(categorie.getNom());
+                }
+                break;
+        }
+    }
+
+    private void oncBx_listentities(ActionEvent e) {
+        JComboBox cb = (JComboBox) e.getSource();
+        String entity = (String) cb.getSelectedItem();
+
     }
 
     private void onbTn_Adhredit(ActionEvent e) {
         if(editmode == false){
+            // enable edit mode
             editmode = true;
 
             JButton editbutton = (JButton) e.getSource();
-            editbutton.setText("Sauvegarder");
+            editbutton.setText("Enregistrer");
             for(int i = 0; i < adhr_panel.getComponents().length; i++){
                 if(adhr_panel.getComponents()[i] instanceof JTextField){
                     JTextField tF_textfield = (JTextField) adhr_panel.getComponents()[i];
@@ -126,6 +173,16 @@ public class MainUI {
             }
         } else {
             editmode = false;
+
+            String name = tF_name.getText();
+            String firstname = tF_fstname.getText();
+            String genre = tF_genre.getText();
+            String birthdate = tF_birthdate.getText();
+            String address = tF_adr.getText();
+            String tel = tF_tel.getText();
+            String mail = tF_mail.getText();
+            Double montant = Double.parseDouble(tF_montant.getText());
+
 
             JButton editbutton = (JButton) e.getSource();
             editbutton.setText("Editer");
@@ -159,7 +216,7 @@ public class MainUI {
 
     private void onbTn_add(int selectedIndex) {
         AjouterAdherentUI dialog = new AjouterAdherentUI();
-        for (Club club : GestionClubs.getClubList()) {
+        for (Club club : GestionClubs.getClubs()) {
             dialog.getcBx_club().addItem(club.getClubNom());
         }
 
@@ -169,42 +226,8 @@ public class MainUI {
         dialog.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    /////////////////////////////////////////////////////
 
-        // create categories.xml into data/
-        GestionCategories.createxmlfile();
-
-        // create club.xml into data/
-        GestionClubs.createFile();
-
-        // create adherents.bin into data/
-        GestionAdherents.saveAdherentsIntoFile();
-
-        // load categorie.xml
-        GestionCategories.loadlistfromxmlfile();
-
-        // load club.xml
-        GestionClubs.loadFile();
-
-        System.out.println(GestionClubs.getClubList().size());
-
-        // load adherents.bin
-        GestionAdherents.loadListofAdherentFromFile();
-
-
-
-
-        Club test = new Club(0, "Did", "7 Pompier", "Sus", "06577523", "aa@aaa.fr", "aa.fr");
-        Club test2 = new Club(0, "Didier", "7 Pompier", "Sus", "06577523", "aa@aaa.fr", "aa.fr");
-
-        GestionClubs.addClub(test);
-        GestionClubs.addClub(test2);
-
-        GestionClubs.saveFile();
-
-
-        new MainUI();
-    }
 
     private void setFilterSearchBy(int selectedIndex) {
 
@@ -254,11 +277,76 @@ public class MainUI {
     private void onbTn_del() {
         int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            if (GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(list1.getSelectedIndex()))) {
+            if (GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()))) {
                 JOptionPane.showMessageDialog(null, "Adherent supprimé avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la suppression de l'adherent", "Suppression", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
+
+
+
+
+    public static void main(String[] args) {
+
+        // create categories.xml into data/
+        GestionCategories.createFile();
+
+        // create club.xml into data/
+        GestionClubs.createFile();
+
+        // create adherents.bin into data/
+        GestionAdherents.saveAdherentsIntoFile();
+
+        //////////////////////////////////
+        // load files
+        //////////////////////////////////
+
+        // load categorie.xml
+        GestionCategories.loadFile();
+
+        // load club.xml
+        GestionClubs.loadFile();
+
+        // load adherents.bin
+        try {
+            GestionAdherents.loadListofAdherentFromFile();
+        } catch (FolderNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Le dossier data n'existe pas", "Erreur", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Fichier adherents.bin introuvable Introuvable", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+        System.out.println(GestionCategories.getCategories().size());
+
+        Adherent adh = new Adherent(
+                GestionAdherents.getAdherents().size(),
+                "name",
+                "firstName",
+                "sexe",
+                "nationality",
+                LocalDate.of(2003, 11, 04),
+                "cityBirth",
+                "address",
+                "cpCity",
+                "tel",
+                "mail",
+                "act_pratique",
+                true,
+                false,
+                false,
+                "Gaucher",
+                GestionClubs.getClubsByName("OMNISPORTS FROUARD/POMPEY"),
+                300,
+                GestionCategories.getCategorieByCode("M4")
+        );
+
+        GestionAdherents.addAdherent(adh);
+        GestionAdherents.saveAdherentsIntoFile();
+
+        new MainUI();
+    }
+
+
 }

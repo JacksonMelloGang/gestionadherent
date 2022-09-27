@@ -1,13 +1,16 @@
 package fr.nimamoums.gestadher.adherent;
 
+import fr.nimamoums.gestadher.exception.FolderNotFoundException;
+
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class GestionAdherents {
+public class GestionAdherents implements Serializable {
 
-    private static List<Adherent> adherentList = null;
+    private static transient List<Adherent> adherentList = new ArrayList<>();
 
     public static void setAdherentList(List<Adherent> adherentList) {
         GestionAdherents.adherentList = adherentList;
@@ -79,63 +82,39 @@ public class GestionAdherents {
         return 0;
     }
 
-    /**
-     * -1 = Unexpected Exception
-     * 0 = success<br>
-     * 1 = file not found<br>
-     * 2 = file not xml<br>
-     * 3 = file not valid<br>
-     * 4 = folder /data not found
-     *
-     * Read clubs.xml file located  <strong>in the same directory as the jar file</strong> + /data
-     **/
-    public static int loadListofAdherentFromFile(){
+
+    public static boolean loadListofAdherentFromFile() throws FolderNotFoundException, FileNotFoundException {
 
         File file = new File("./data/adherents.bin");
         if(!file.getParentFile().exists()){
-            return 4;
+            throw new FolderNotFoundException("Folder not found");
         }
 
         if(!file.exists()){
-            return 1;
+            throw new FileNotFoundException("File not found");
         }
 
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))){
             adherentList = (List<Adherent>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return -1;
+            return false;
         }
 
-        return 0;
+        return false;
     }
 
 
 
     public static void addAdherent(Adherent adherent) {
         adherentList.add(adherent);
-
-        saveAdherentsIntoFile();
     }
 
     public static boolean removeAdherent(Adherent adherent) {
         return adherentList.remove(adherent);
     }
 
-    /**
-     * return a list of adherents,
-     * by default the list is null, and if the list is null, it will be loaded from the file
-     * adherent.bin
-     **/
     public static List<Adherent> getAdherents() {
-        if (adherentList == null) {
-            loadListofAdherentFromFile();
-        }
-
-        return adherentList;
-    }
-
-    public static List<Adherent> getAdherentList() {
         return adherentList;
     }
 
@@ -204,7 +183,7 @@ public class GestionAdherents {
                 break;
             case "date_naissance":
                 for(Adherent adhr : adherentList){
-                    if(adhr.getDate_naissance().contains(criteria)){
+                    if(adhr.getDate_naissance().isEqual(LocalDate.parse(criteria))){
                         foundochurence.add(adhr);
                     }
                 }

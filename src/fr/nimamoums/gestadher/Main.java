@@ -17,9 +17,6 @@ public class Main {
 
 
 
-        GestionAdherents.setAdherentList(null);
-        GestionAdherents.loadListofAdherentFromFile();
-        System.out.println(GestionAdherents.getAdherentList().size());
 
     }
 

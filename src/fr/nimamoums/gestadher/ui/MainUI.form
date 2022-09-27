@@ -17,7 +17,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="7865a" binding="adhr_panel" layout-manager="GridLayoutManager" row-count="8" column-count="8" same-size-horizontally="false" same-size-vertically="true" hgap="10" vgap="10">
+          <grid id="7865a" binding="adhr_panel" layout-manager="GridLayoutManager" row-count="8" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="10" vgap="10">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Adherents"/>
@@ -36,9 +36,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_name_family_name"/>
                 </properties>
               </component>
-              <component id="d87b" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="d87b" class="javax.swing.JTextField" binding="tF_name">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="0" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -48,7 +48,7 @@
               </component>
               <component id="3dca4" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_name"/>
@@ -62,9 +62,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_date_birth"/>
                 </properties>
               </component>
-              <component id="eeaf4" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+              <component id="eeaf4" class="javax.swing.JTextField" binding="tF_birthdate">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -80,9 +80,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_sexuality"/>
                 </properties>
               </component>
-              <component id="136cc" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+              <component id="136cc" class="javax.swing.JTextField" binding="tF_genre">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -92,7 +92,7 @@
               </component>
               <component id="72604" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_city_country_birth"/>
@@ -100,7 +100,7 @@
               </component>
               <component id="9d584" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_nationality"/>
@@ -114,9 +114,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adress"/>
                 </properties>
               </component>
-              <component id="299a9" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+              <component id="299a9" class="javax.swing.JTextField" binding="tF_adr">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="3" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -126,7 +126,7 @@
               </component>
               <component id="61fed" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_city_pc"/>
@@ -140,9 +140,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="tel"/>
                 </properties>
               </component>
-              <component id="7d031" class="javax.swing.JTextField" binding="textField9" default-binding="true">
+              <component id="7d031" class="javax.swing.JTextField" binding="tF_tel">
                 <constraints>
-                  <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="4" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -152,7 +152,7 @@
               </component>
               <component id="34388" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="mail"/>
@@ -176,7 +176,7 @@
               </component>
               <component id="9fb71" class="javax.swing.JCheckBox" binding="cH_sabre">
                 <constraints>
-                  <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Sabre"/>
@@ -192,7 +192,7 @@
               </component>
               <component id="b7561" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_actpratique"/>
@@ -200,7 +200,7 @@
               </component>
               <component id="b3ff1" class="javax.swing.JCheckBox" binding="cH_loisir">
                 <constraints>
-                  <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Loisir"/>
@@ -214,9 +214,9 @@
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="price"/>
                 </properties>
               </component>
-              <component id="14094" class="javax.swing.JTextField" binding="textField12" default-binding="true">
+              <component id="14094" class="javax.swing.JTextField" binding="tF_montant">
                 <constraints>
-                  <grid row="6" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -226,23 +226,23 @@
               </component>
               <component id="838a5" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="matos"/>
                 </properties>
               </component>
-              <component id="d9676" class="javax.swing.JButton" binding="afficherButton" default-binding="true">
+              <component id="d9676" class="javax.swing.JButton" binding="bTn_matosloc">
                 <constraints>
-                  <grid row="6" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Afficher"/>
                 </properties>
               </component>
-              <component id="f6327" class="javax.swing.JTextField" binding="textField10" default-binding="true">
+              <component id="f6327" class="javax.swing.JTextField" binding="tF_mail">
                 <constraints>
-                  <grid row="4" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="4" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -250,9 +250,9 @@
                   <editable value="false"/>
                 </properties>
               </component>
-              <component id="df6a4" class="javax.swing.JTextField" binding="textField7" default-binding="true">
+              <component id="df6a4" class="javax.swing.JTextField" binding="tF_pc">
                 <constraints>
-                  <grid row="3" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="3" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -260,9 +260,9 @@
                   <editable value="false"/>
                 </properties>
               </component>
-              <component id="97b47" class="javax.swing.JTextField" binding="textField8" default-binding="true">
+              <component id="97b47" class="javax.swing.JTextField" binding="tF_nationality">
                 <constraints>
-                  <grid row="2" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="2" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -270,9 +270,9 @@
                   <editable value="false"/>
                 </properties>
               </component>
-              <component id="9f700" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+              <component id="9f700" class="javax.swing.JTextField" binding="tF_city">
                 <constraints>
-                  <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -280,9 +280,9 @@
                   <editable value="false"/>
                 </properties>
               </component>
-              <component id="6ae30" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+              <component id="6ae30" class="javax.swing.JTextField" binding="tF_fstname">
                 <constraints>
-                  <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="0" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -292,7 +292,7 @@
               </component>
               <component id="a3bfc" class="javax.swing.JCheckBox" binding="cH_competitive">
                 <constraints>
-                  <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Compétitive"/>
@@ -308,7 +308,7 @@
               </component>
               <component id="fb761" class="javax.swing.JComboBox" binding="cBx_categorie">
                 <constraints>
-                  <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <model/>
@@ -316,18 +316,34 @@
               </component>
               <component id="5c404" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_ass"/>
                 </properties>
               </component>
-              <component id="ff33d" class="javax.swing.JCheckBox" binding="assuréCheckBox" default-binding="true">
+              <component id="ff33d" class="javax.swing.JCheckBox" binding="cH_assure">
                 <constraints>
-                  <grid row="7" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Assuré"/>
+                </properties>
+              </component>
+              <component id="9342b" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Réduction:"/>
+                </properties>
+              </component>
+              <component id="fa52b" class="javax.swing.JLabel" binding="lBl_reduc">
+                <constraints>
+                  <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Aucune"/>
                 </properties>
               </component>
             </children>
@@ -466,13 +482,13 @@
       </component>
       <component id="dcfc7" class="javax.swing.JSeparator">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
       <component id="b945f" class="javax.swing.JComboBox" binding="cBx_filter_searchby">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <model/>
@@ -480,7 +496,7 @@
       </component>
       <component id="9638" class="javax.swing.JLabel">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="search_by"/>
@@ -488,7 +504,7 @@
       </component>
       <component id="a077d" class="javax.swing.JTextField" binding="tF_filter_search">
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -532,6 +548,22 @@
         </constraints>
         <properties>
           <text value="0000"/>
+        </properties>
+      </component>
+      <component id="604bd" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text resource-bundle="fr/nimamoums/gestadher/ui/lang/fr/fr_FR" key="adhr_dateinsc"/>
+        </properties>
+      </component>
+      <component id="cc170" class="javax.swing.JLabel" binding="lBl_dateinc">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Label"/>
         </properties>
       </component>
     </children>

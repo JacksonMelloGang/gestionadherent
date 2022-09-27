@@ -1,6 +1,7 @@
 package fr.nimamoums.gestadher.ui;
 
 import fr.nimamoums.gestadher.adherent.Adherent;
+import fr.nimamoums.gestadher.adherent.Categorie;
 import fr.nimamoums.gestadher.adherent.GestionAdherents;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class AjouterAdherentUI extends JDialog {
     private JPanel contentPane;
@@ -22,7 +24,7 @@ public class AjouterAdherentUI extends JDialog {
     private JTextField tF_adress;
     private JCheckBox fCheckBox;
     private JCheckBox mCheckBox;
-    private JCheckBox assuréCheckBox;
+    private JCheckBox assureCheckBox;
     private JTextField tF_cp_city;
     private JTextField tF_tel;
     private JTextField tF_mail;
@@ -33,6 +35,9 @@ public class AjouterAdherentUI extends JDialog {
     private JComboBox cBx_pratique;
     private JComboBox cBx_club;
     private JLabel lbl_status_adhr_add;
+    private JCheckBox cH_sndmember;
+    private JCheckBox cH_thmember;
+    private JComboBox cBx_cat;
 
     public AjouterAdherentUI() {
 
@@ -40,7 +45,9 @@ public class AjouterAdherentUI extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-
+        ////////////////////////////////////
+        // EVENT LISTENERS
+        ////////////////////////////////////
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -74,18 +81,14 @@ public class AjouterAdherentUI extends JDialog {
         mCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(mCheckBox.isSelected()){
-                    fCheckBox.setSelected(false);
-                }
+                oncH_thmember(mCheckBox, fCheckBox);
             }
         });
 
         fCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(fCheckBox.isSelected()){
-                    mCheckBox.setSelected(false);
-                }
+                oncH_thmember(fCheckBox, mCheckBox);
             }
         });
         tF_date_birth.addFocusListener(new FocusAdapter() {
@@ -101,101 +104,35 @@ public class AjouterAdherentUI extends JDialog {
         });
         contentPane.addComponentListener(new ComponentAdapter() {
         });
+        cH_thmember.addActionListener(e -> {
+            oncH_thmember(cH_thmember, cH_sndmember);
+        });
+        cH_sndmember.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                oncH_sndmember(cH_sndmember, cH_thmember);
+            }
+        });
     }
 
-    public static void main(String[] args) {
-        AjouterAdherentUI dialog = new AjouterAdherentUI();
-        for (Club club : GestionClubs.getClubList()) {
-            dialog.cBx_club.addItem(club.getClubNom());
+    private void oncH_sndmember(JCheckBox cH_sndmember, JCheckBox cH_thmember) {
+        if(cH_sndmember.isSelected()){
+            cH_thmember.setSelected(false);
+            cH_thmember.setEnabled(false);
+        } else {
+            cH_thmember.setEnabled(true);
         }
-
-        dialog.setTitle("Ajouter un adhérent");
-        dialog.setBounds(100, 100, 800, 800);
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
-    @Override
-    public JPanel getContentPane() {
-        return contentPane;
+    private void oncH_thmember(JCheckBox cH_thmember, JCheckBox cH_sndmember) {
+        if(cH_thmember.isSelected()){
+            cH_sndmember.setSelected(false);
+            cH_sndmember.setEnabled(false);
+        } else {
+            cH_sndmember.setEnabled(true);
+        }
     }
 
-    public JButton getButtonOK() {
-        return buttonOK;
-    }
-
-    public JButton getButtonCancel() {
-        return buttonCancel;
-    }
-
-    public JTextField gettF_last_name() {
-        return tF_last_name;
-    }
-
-    public JTextField gettF_first_name() {
-        return tF_first_name;
-    }
-
-    public JTextField gettF_date_birth() {
-        return tF_date_birth;
-    }
-
-    public JTextField gettF_city_birth() {
-        return tF_city_birth;
-    }
-
-    public JTextField getTf_Nationalite() {
-        return tf_Nationalite;
-    }
-
-    public JTextField gettF_adress() {
-        return tF_adress;
-    }
-
-    public JCheckBox getfCheckBox() {
-        return fCheckBox;
-    }
-
-    public JCheckBox getmCheckBox() {
-        return mCheckBox;
-    }
-
-    public JCheckBox getAssuréCheckBox() {
-        return assuréCheckBox;
-    }
-
-    public JTextField gettF_cp_city() {
-        return tF_cp_city;
-    }
-
-    public JTextField gettF_tel() {
-        return tF_tel;
-    }
-
-    public JTextField gettF_mail() {
-        return tF_mail;
-    }
-
-    public JComboBox getcBx_locatedmatos() {
-        return cBx_locatedmatos;
-    }
-
-    public JTextField gettF_montant() {
-        return tF_montant;
-    }
-
-    public JLabel getTéléphoneLabel() {
-        return téléphoneLabel;
-    }
-
-    public JComboBox getcBx_armes() {
-        return cBx_armes;
-    }
-
-    public JComboBox getcBx_pratique() {
-        return cBx_pratique;
-    }
 
     private void showPlaceholder(FocusEvent e, String s) {
         JTextField textField = (JTextField) e.getSource();
@@ -211,18 +148,12 @@ public class AjouterAdherentUI extends JDialog {
         }
     }
 
-    public JComboBox getcBx_club() {
-        return cBx_club;
-    }
-
     private void onCancel() {
         // add your code here if necessary
         dispose();
     }
 
     private void onOK() throws InterruptedException {
-        // add your code here
-
         String name = "";
         String firstName = "";
         String sexe = "";
@@ -237,9 +168,13 @@ public class AjouterAdherentUI extends JDialog {
         String locatedMatos = "";
         String armes = "";
         String act_pratique = "";
-        String club = "";
+        Club club = null;
+        Categorie categorie = null;
+
         double montant = 0;
         boolean isAssure = false;
+        boolean isThMember = false;
+        boolean isSndMember = false;
 
         if (tF_last_name.getText().isEmpty()) {
             Toolkit.getDefaultToolkit().beep();
@@ -310,14 +245,6 @@ public class AjouterAdherentUI extends JDialog {
             tF_mail.requestFocus();
             return;
         }
-        /**
-         if(tF_locatedMatos.getText().isEmpty()){
-         Toolkit.getDefaultToolkit().beep();
-         JOptionPane.showMessageDialog(this, "Veuillez saisir le matériel possédé par l'adhérent");
-         tF_locatedMatos.requestFocus();
-         return;
-         }
-         **/
 
         if (cBx_armes.getSelectedItem().toString().isEmpty()) {
             Toolkit.getDefaultToolkit().beep();
@@ -335,7 +262,7 @@ public class AjouterAdherentUI extends JDialog {
 
         if (cBx_club.getSelectedItem().toString().isEmpty()) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Veuillez saisir le club de l'adhérent");
+            JOptionPane.showMessageDialog(this, "Veuillez séléctionner le club de l'adhérent");
             cBx_club.requestFocus();
             return;
         }
@@ -356,9 +283,21 @@ public class AjouterAdherentUI extends JDialog {
         } else {
             sexe = "F";
         }
-        boolean assure = assuréCheckBox.isSelected();
 
-        dateBirth = LocalDate.parse(tF_date_birth.getText());
+        // boolean
+        isAssure = assureCheckBox.isSelected();
+        isSndMember = cH_sndmember.isSelected();
+        isThMember = cH_thmember.isSelected();
+
+        try {
+            dateBirth = LocalDate.parse(tF_date_birth.getText());
+        } catch (DateTimeParseException e){
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la date de naissance de l'adhérent au format JJ/MM/AAAA");
+            tF_date_birth.requestFocus();
+            return;
+        }
+
         cityBirth = tF_city_birth.getText();
 
         nationality = tf_Nationalite.getText();
@@ -376,29 +315,82 @@ public class AjouterAdherentUI extends JDialog {
         int birthdate_month = Integer.parseInt(String.valueOf(dateBirth.getMonthValue()));
         int birthdate_day = Integer.parseInt(String.valueOf(dateBirth.getDayOfMonth()));
 
+        club = GestionClubs.getClubsByName(cBx_club.getSelectedItem().toString());
+
+        // calcul montant
         montant = Integer.parseInt(tF_montant.getText());
 
-        new Adherent(
-                GestionAdherents.getAdherents().size(),
-                name,
-                firstName,
-                sexe,
-                nationality,
-                LocalDate.of(birthdate_year, birthdate_month, birthdate_day),
-                cityBirth,
-                address,
-                cpCity,
-                tel,
-                mail,
-                LocalDate.now(),
-                act_pratique,
-                0,
-                false,
-                false,
-                false,
-                "Gaucher",
-                montant
-        );
+        // calcul date naissance montant & 2nd member or 3third member of family
+        if(birthdate_year <= 2002){
+            montant = montant + 255;
+            // member family
+            if(isSndMember){
+                montant = montant - 33.75;
+            } else if(isThMember){
+                montant = montant - 45;
+            }
+
+        } else {
+            if(birthdate_year <= 2011){
+                montant = montant + 220;
+                // member family
+                if(isSndMember){
+                    montant = montant - 28.50;
+                } else if(isThMember){
+                    montant = montant - 38;
+                }
+            } else {
+                montant = montant + 190;
+                // member family
+                if(isSndMember){
+                    montant = montant - 24;
+                } else if(isThMember){
+                    montant = montant - 32;
+                }
+            }
+        }
+        // calcul assure or not
+        if(!isAssure){
+            montant = montant - 0.21;
+        } else {
+            montant = montant + 1.49;
+        }
+
+        tF_montant.setText(String.valueOf(montant));
+
+        int resultconfirm = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment ajouter cet adhérent ?\nMontant: " + montant + "€");
+        if(resultconfirm != JOptionPane.YES_OPTION){
+            return;
+        }
+
+
+        Adherent adh = new Adherent(
+                        GestionAdherents.getAdherents().size(),
+                        name,
+                        firstName,
+                        sexe,
+                        nationality,
+                        LocalDate.of(birthdate_year, birthdate_month, birthdate_day),
+                        cityBirth,
+                        address,
+                        cpCity,
+                        tel,
+                        mail,
+                        act_pratique,
+                        isAssure,
+                        isSndMember,
+                        isThMember,
+                        "Gaucher",
+                        club,
+                        montant,
+                        categorie
+                );
+
+        GestionAdherents.addAdherent(adh);
+        GestionAdherents.saveAdherentsIntoFile();
+
+        JOptionPane.showMessageDialog(this, "Adhérent ajouté !", "Ajout d'un adhérent", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println(GestionAdherents.getAdherents().size());
 
         // Clean everything when the new adherent has been registered
         for (Component component : contentPane.getComponents()) {
@@ -416,6 +408,95 @@ public class AjouterAdherentUI extends JDialog {
         lbl_status_adhr_add.setForeground(Color.GREEN);
         Thread.sleep(1000);
         lbl_status_adhr_add.setText("");
-        //dispose();
     }
+
+
+    ////////////////////////////////////
+    // GETTERS
+    ////////////////////////////////////
+    @Override
+    public JPanel getContentPane() {
+        return contentPane;
+    }
+
+    public JButton getButtonOK() {
+        return buttonOK;
+    }
+
+    public JButton getButtonCancel() {
+        return buttonCancel;
+    }
+
+    public JTextField gettF_last_name() {
+        return tF_last_name;
+    }
+
+    public JTextField gettF_first_name() {
+        return tF_first_name;
+    }
+
+    public JTextField gettF_date_birth() {
+        return tF_date_birth;
+    }
+
+    public JTextField gettF_city_birth() {
+        return tF_city_birth;
+    }
+
+    public JTextField getTf_Nationalite() {
+        return tf_Nationalite;
+    }
+
+    public JTextField gettF_adress() {
+        return tF_adress;
+    }
+
+    public JCheckBox getfCheckBox() {
+        return fCheckBox;
+    }
+
+    public JCheckBox getmCheckBox() {
+        return mCheckBox;
+    }
+
+    public JCheckBox getAssureCheckBox() {
+        return assureCheckBox;
+    }
+
+    public JTextField gettF_cp_city() {
+        return tF_cp_city;
+    }
+
+    public JTextField gettF_tel() {
+        return tF_tel;
+    }
+
+    public JTextField gettF_mail() {
+        return tF_mail;
+    }
+
+    public JComboBox getcBx_locatedmatos() {
+        return cBx_locatedmatos;
+    }
+
+    public JTextField gettF_montant() {
+        return tF_montant;
+    }
+
+    public JLabel getTéléphoneLabel() {
+        return téléphoneLabel;
+    }
+
+    public JComboBox getcBx_armes() {
+        return cBx_armes;
+    }
+
+    public JComboBox getcBx_pratique() {
+        return cBx_pratique;
+    }
+
+    public JComboBox getcBx_club() {
+        return cBx_club;
+    }
+
 }

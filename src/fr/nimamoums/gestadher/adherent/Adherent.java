@@ -1,10 +1,13 @@
 package fr.nimamoums.gestadher.adherent;
 
+import fr.nimamoums.gestadher.club.Club;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Adherent implements Serializable {
-
+    private Categorie categorie;
+    private Club club;
     private int adherentId;
     private String nom;
     private String nom_naissance;
@@ -32,8 +35,9 @@ public class Adherent implements Serializable {
     private double montant;
 
     //////////////////////////////////////////////////////////////////////////
+    // CONSTRUCTEURS
 
-    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, LocalDate date_adhesion, String pratique, double cotisation, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, double montant) {
+    public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String pratique, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, Club club, double montant, Categorie categorie) {
         for(Adherent adherent : GestionAdherents.getAdherents()){
             if(adherent.getAdherentId() == adherentId){
                 adherentId++;
@@ -53,14 +57,13 @@ public class Adherent implements Serializable {
         this.mail = mail;
         this.date_adhesion =  LocalDate.now();
         this.pratique = pratique;
-        this.cotisation = cotisation;
         this.hasAssurance = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
         this.reduction3andplusadhere = reduction3andplusadhere;
         this.lateralite = lateralite;
-        this.montant = 0;
-
-        GestionAdherents.addAdherent(this);
+        this.club = club;
+        this.montant = montant;
+        this.categorie = categorie;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -221,4 +224,19 @@ public class Adherent implements Serializable {
         return reduction3andplusadhere;
     }
 
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
+
+    public void setReduction2emeadhere(boolean reduction2emeadhere) {
+        this.reduction2emeadhere = reduction2emeadhere;
+    }
+
+    public void setReduction3andplusadhere(boolean reduction3andplusadhere) {
+        this.reduction3andplusadhere = reduction3andplusadhere;
+    }
 }

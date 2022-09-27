@@ -1,5 +1,7 @@
 package fr.nimamoums.gestadher.adherent;
 
+import java.time.Year;
+
 public class Categorie {
 
     private int catId;
@@ -8,13 +10,13 @@ public class Categorie {
 
     private String code;
 
-    private String annee_min;
+    private Year annee_min;
 
-    private String annee_max;
+    private Year annee_max;
 
     private double cotisation;
 
-    public Categorie(int catid, String nom, String code, String annee_min, String annee_max){
+    public Categorie(int catid, String nom, String code, Year annee_min, Year annee_max){
 
         this.catId = catid;
         this.nom = nom;
@@ -22,7 +24,6 @@ public class Categorie {
         this.annee_min = annee_min;
         this.annee_max = annee_max;
 
-        GestionCategories.addCategorie(this);
     }
 
 
@@ -50,19 +51,19 @@ public class Categorie {
         this.code = code;
     }
 
-    public String getAnnee_min() {
+    public Year getAnnee_min() {
         return annee_min;
     }
 
-    public void setAnnee_min(String annee_min) {
+    public void setAnnee_min(Year annee_min) {
         this.annee_min = annee_min;
     }
 
-    public String getAnnee_max() {
+    public Year getAnnee_max() {
         return annee_max;
     }
 
-    public void setAnnee_max(String annee_max) {
+    public void setAnnee_max(Year annee_max) {
         this.annee_max = annee_max;
     }
 
