@@ -88,7 +88,7 @@ public class GestionClubs {
                 Element xclub = document.createElement("club");
                 xclub.setAttribute("id", String.valueOf(club.getClubId()));
 
-                Element xnom = document.createElement("clubName");
+                Element xnom = document.createElement("nom");
                 Element xcontact = document.createElement("contact");
                 Element xadresse = document.createElement("adresse");
                 Element xtelephone = document.createElement("tel");

@@ -220,7 +220,7 @@ public class MainUI {
                 if(adherent.getCategorie() != null){
                     if(adherent.getCategorie().getNom().equals(categorie.getNom())){
                         i += 1;
-                        catMemberString.append("Membre N°"+ i + " : " + adherent.getNom().toUpperCase()).append(" ").append(adherent.getPrenom());
+                        catMemberString.append("Membre N°"+ i + " : " + adherent.getNom().toUpperCase()).append(" ").append(adherent.getPrenom() + "\n");
                     }
                 }
             }
