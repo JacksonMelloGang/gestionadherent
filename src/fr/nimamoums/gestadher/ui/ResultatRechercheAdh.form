@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fr.nimamoums.gestadher.ui.ResultatRecherche">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fr.nimamoums.gestadher.ui.ResultatRechercheAdh">
   <grid id="27dc6" layout-manager="GridBagLayout">
     <constraints>
       <xy x="5" y="3" width="813" height="423"/>

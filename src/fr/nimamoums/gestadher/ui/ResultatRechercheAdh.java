@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultatRecherche {
+public class ResultatRechercheAdh {
 
     public static List<Object> results = new ArrayList<>();
     private JTabbedPane tabbedPane1;

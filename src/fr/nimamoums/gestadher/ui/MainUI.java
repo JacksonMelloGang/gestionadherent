@@ -6,13 +6,11 @@ import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
 import fr.nimamoums.gestadher.user.adherent.categorie.GestionCategories;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
-import fr.nimamoums.gestadher.exception.FolderNotFoundException;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -50,7 +48,6 @@ public class MainUI {
     private JComboBox cBx_categorie;
     private JCheckBox cH_assure;
     private JPanel adhr_panel;
-    private JLabel lBl_reduc;
     private JLabel lBl_dateinc;
     private JCheckBox cB_fsex;
     private JCheckBox cB_msex;
@@ -64,6 +61,7 @@ public class MainUI {
     private JList lSt_cats;
     private JTextArea fTf_catmember;
     private JTextArea fTf_infocat;
+    private JLabel lBl_reduc;
 
     private boolean editmode = false;
 
@@ -553,7 +551,7 @@ public class MainUI {
     }
 
     private void onSearch(ActionEvent e) {
-        ResultatRecherche.clearResults();
+        ResultatRechercheAdh.clearResults();
 
         String searchby = (String) cBx_filter_searchby.getSelectedItem();
         String search = tF_filter_search.getText();
@@ -562,19 +560,19 @@ public class MainUI {
                 for(Adherent adherent : GestionAdherents.getAdherents()){
                     if(searchby.equals("Nom")){
                         if(adherent.getNom().toLowerCase().contains(search.toLowerCase())){
-                            ResultatRecherche.addResult(adherent);
+                            ResultatRechercheAdh.addResult(adherent);
                         }
                     } else if(searchby.equals("Prénom")){
                         if(adherent.getPrenom().toLowerCase().contains(search.toLowerCase())){
-                            ResultatRecherche.addResult(adherent);
+                            ResultatRechercheAdh.addResult(adherent);
                         }
                     } else if(searchby.equals("Club")){
                         if(adherent.getClub().getClubNom().toLowerCase().contains(search.toLowerCase())){
-                            ResultatRecherche.addResult(adherent);
+                            ResultatRechercheAdh.addResult(adherent);
                         }
                     } else if(searchby.equals("Catégorie")){
                         if(adherent.getCategorie().getCode().toLowerCase().contains(search.toLowerCase())){
-                            ResultatRecherche.addResult(adherent);
+                            ResultatRechercheAdh.addResult(adherent);
                         }
                     }
                 }
@@ -737,9 +735,13 @@ public class MainUI {
                 if (selectedIndex == 2) {
                     // Materiels
                     cBx_filter_searchby.removeAllItems();
-                    cBx_filter_searchby.addItem("");
-                    cBx_filter_searchby.addItem("");
-                    cBx_filter_searchby.addItem("");
+                    cBx_filter_searchby.addItem("Kit débutant");
+                    cBx_filter_searchby.addItem("Veste");
+                    cBx_filter_searchby.addItem("Masque F/E");
+                    cBx_filter_searchby.addItem("Masque S");
+                    cBx_filter_searchby.addItem("Veste électrique fleuret");
+                    cBx_filter_searchby.addItem("Veste électrique sabre");
+                    cBx_filter_searchby.addItem("Armes");
                 }
             }
         }
