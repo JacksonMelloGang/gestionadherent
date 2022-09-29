@@ -104,7 +104,7 @@ public class MainUI {
         cBx_filter_searchby.addItem("Date de Naissance");
         cBx_filter_searchby.addItem("Ville de Naissance");
         cBx_filter_searchby.addItem("Adresse");
-        cBx_filter_searchby.addItem("CodePostal");
+        cBx_filter_searchby.addItem("Code Postal");
         cBx_filter_searchby.addItem("Ville");
         cBx_filter_searchby.addItem("Telephone");
         cBx_filter_searchby.addItem("Email");
@@ -551,6 +551,10 @@ public class MainUI {
     }
 
     private void onSearch(ActionEvent e) {
+
+        ResultatRechercheCate dialog = new ResultatRechercheCate();
+
+
         ResultatRechercheAdh.clearResults();
 
         String searchby = (String) cBx_filter_searchby.getSelectedItem();
@@ -730,7 +734,7 @@ public class MainUI {
                 cBx_filter_searchby.addItem("Contact");
                 cBx_filter_searchby.addItem("Télephone");
                 cBx_filter_searchby.addItem("Mail");
-                cBx_filter_searchby.addItem("SiteWeb");
+                cBx_filter_searchby.addItem("Site Web");
             } else {
                 if (selectedIndex == 2) {
                     // Materiels
