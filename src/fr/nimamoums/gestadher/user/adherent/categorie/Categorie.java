@@ -1,8 +1,9 @@
-package fr.nimamoums.gestadher.adherent;
+package fr.nimamoums.gestadher.user.adherent.categorie;
 
+import java.io.Serializable;
 import java.time.Year;
 
-public class Categorie {
+public class Categorie implements Serializable {
 
     private int catId;
 

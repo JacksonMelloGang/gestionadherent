@@ -1,10 +1,11 @@
 package fr.nimamoums.gestadher.ui;
 
-import fr.nimamoums.gestadher.adherent.Adherent;
-import fr.nimamoums.gestadher.adherent.Categorie;
-import fr.nimamoums.gestadher.adherent.GestionAdherents;
+import fr.nimamoums.gestadher.user.adherent.Adherent;
+import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
+import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
+import fr.nimamoums.gestadher.user.adherent.categorie.GestionCategories;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +46,10 @@ public class AjouterAdherentUI extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        for(Categorie categorie : GestionCategories.getCategories()){
+            cBx_cat.addItem(categorie.getNom() + " - " + categorie.getCode());
+        }
+
         ////////////////////////////////////
         // EVENT LISTENERS
         ////////////////////////////////////
@@ -81,14 +86,14 @@ public class AjouterAdherentUI extends JDialog {
         mCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                oncH_thmember(mCheckBox, fCheckBox);
+                onmCheckBox_Selected(mCheckBox, fCheckBox);
             }
         });
 
         fCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                oncH_thmember(fCheckBox, mCheckBox);
+                onfCheckBox_Selected(fCheckBox, mCheckBox);
             }
         });
         tF_date_birth.addFocusListener(new FocusAdapter() {
@@ -113,6 +118,18 @@ public class AjouterAdherentUI extends JDialog {
                 oncH_sndmember(cH_sndmember, cH_thmember);
             }
         });
+    }
+
+    private void onmCheckBox_Selected(JCheckBox mCheckBox, JCheckBox fCheckBox) {
+        if(mCheckBox.isSelected()){
+            fCheckBox.setSelected(false);
+        }
+    }
+
+    private void onfCheckBox_Selected(JCheckBox fCheckBox, JCheckBox mCheckBox) {
+        if (fCheckBox.isSelected()) {
+            mCheckBox.setSelected(false);
+        }
     }
 
     private void oncH_sndmember(JCheckBox cH_sndmember, JCheckBox cH_thmember) {
@@ -267,14 +284,6 @@ public class AjouterAdherentUI extends JDialog {
             return;
         }
 
-        if (tF_montant.getText().isEmpty()) {
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Veuillez saisir le montant de l'adhésion de l'adhérent");
-            tF_montant.requestFocus();
-            return;
-        }
-
-
         name = tF_last_name.getText();
         firstName = tF_first_name.getText();
 
@@ -317,8 +326,8 @@ public class AjouterAdherentUI extends JDialog {
 
         club = GestionClubs.getClubsByName(cBx_club.getSelectedItem().toString());
 
-        // calcul montant
-        montant = Integer.parseInt(tF_montant.getText());
+        // calcul montant (si pas de montant renseigné, on prend le montant par défaut)
+        montant = 0;
 
         // calcul date naissance montant & 2nd member or 3third member of family
         if(birthdate_year <= 2002){
@@ -358,12 +367,30 @@ public class AjouterAdherentUI extends JDialog {
 
         tF_montant.setText(String.valueOf(montant));
 
-        int resultconfirm = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment ajouter cet adhérent ?\nMontant: " + montant + "€");
+        int resultconfirm = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment ajouter cet adhérent ?\nMontant à payer: " + montant + "€");
         if(resultconfirm != JOptionPane.YES_OPTION){
             return;
         }
 
-
+        //int adherentId,
+        // String nom,
+        // String prenom,
+        // String genre,
+        // String nationalite,
+        // LocalDate date_naissance,
+        // String pays_ville_naissance,
+        // String adresse,
+        // String code_postal,
+        // String tel,
+        // String mail,
+        // String catpratique, (loisir ou compet)
+        // boolean hasAssurance,
+        // boolean reduction2emeadhere,
+        // boolean reduction3andplusadhere,
+        // String lateralite,
+        // String arme utilisé,
+        // Club club,
+        // double montant
         Adherent adh = new Adherent(
                         GestionAdherents.getAdherents().size(),
                         name,
@@ -381,21 +408,28 @@ public class AjouterAdherentUI extends JDialog {
                         isSndMember,
                         isThMember,
                         "Gaucher",
+                        "fleuret",
                         club,
-                        montant,
-                        categorie
+                        montant
                 );
 
         GestionAdherents.addAdherent(adh);
-        GestionAdherents.saveAdherentsIntoFile();
+        GestionAdherents.saveAdherents();
 
         JOptionPane.showMessageDialog(this, "Adhérent ajouté !", "Ajout d'un adhérent", JOptionPane.INFORMATION_MESSAGE);
-        System.out.println(GestionAdherents.getAdherents().size());
 
         // Clean everything when the new adherent has been registered
         for (Component component : contentPane.getComponents()) {
             if (component instanceof JTextField) {
                 ((JTextField) component).setText(null);
+            } else {
+                if(component instanceof JComboBox){
+                    ((JComboBox) component).setSelectedIndex(0);
+                } else {
+                    if(component instanceof JCheckBox){
+                        ((JCheckBox) component).setSelected(false);
+                    }
+                }
             }
         }
 

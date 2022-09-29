@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadher.adherent;
+package fr.nimamoums.gestadher.user.adherent.categorie;
 
 
 import org.w3c.dom.Document;
@@ -18,7 +18,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Year;
 import java.util.ArrayList;
@@ -169,11 +168,11 @@ public class GestionCategories {
         return false;
     }
     
-    public static Categorie getCategorieByCode(String Categorie_code){
+    public static Categorie getCategoryByCode(String Categorie_code){
         Categorie Categorie = null;
         int i = 0;
         while(i < categorieList.size() && Categorie == null){
-            if(categorieList.get(i).getCode() == Categorie_code){
+            if(categorieList.get(i).getCode().equalsIgnoreCase(Categorie_code)){
                 Categorie = categorieList.get(i);
             }
             i++;
@@ -228,5 +227,18 @@ public class GestionCategories {
         }
 
         return null;
+    }
+
+    public static Categorie getCategoryByName(String s) {
+        Categorie categorie = null;
+        int i = 0;
+        while(i < categorieList.size() && categorie == null){
+            if(categorieList.get(i).getNom().equalsIgnoreCase(s)){
+                categorie = categorieList.get(i);
+            }
+            i++;
+        }
+
+        return categorie;
     }
 }

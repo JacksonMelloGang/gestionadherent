@@ -1,7 +1,8 @@
-package fr.nimamoums.gestadher.adherent;
+package fr.nimamoums.gestadher.user.adherent;
 
 import fr.nimamoums.gestadher.exception.FolderNotFoundException;
 
+import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,8 +40,12 @@ public class GestionAdherents implements Serializable {
         Adherent adherent = null;
         int i = 0;
         while (i < adherentList.size() && adherent == null) {
-            if (adherentList.get(i).getNom().equalsIgnoreCase(name)) {
-                adherent = adherentList.get(i);
+            if(name.split(" ").length > 1){
+                String nom = name.split(" ")[0];
+                String sndname = name.split(" ")[1];
+                if (adherentList.get(i).getNom().equalsIgnoreCase(nom) && adherentList.get(i).getPrenom().equalsIgnoreCase(sndname)) {
+                    adherent = adherentList.get(i);
+                }
             }
             i++;
         }
@@ -61,18 +66,26 @@ public class GestionAdherents implements Serializable {
         return adherent;
     }
 
-    public static int saveAdherentsIntoFile() {
-        try {
-            File file = new File("./data/adherents.bin");
-            if(!file.getParentFile().exists()){
-                file.getParentFile().mkdir();
-            }
+    public static void createFile() {
+        File file = new File("./data/adherents.bin");
+        if(!file.getParentFile().exists()){
+            file.getParentFile().mkdir();
+        }
 
-            if(!file.exists()){
+        if(!file.exists()){
+            try {
                 file.createNewFile();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error while creating file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
+        }
+    }
 
-            ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream(file));
+    public static int saveAdherents() {
+        createFile();
+        try {
+            ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream("./data/adherents.bin"));
             objectInputStream.writeObject(adherentList);
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,9 +109,15 @@ public class GestionAdherents implements Serializable {
 
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))){
             adherentList = (List<Adherent>) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (EOFException e) {
+            //ignore (empty file)
             return false;
+        } catch(ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error while loading file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error while loading file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(e);
         }
 
         return false;
@@ -204,7 +223,7 @@ public class GestionAdherents implements Serializable {
                 break;
             case "assurance":
                 for(Adherent adhr : adherentList){
-                    if(adhr.isHasAssurance() == Boolean.parseBoolean(criteria)){
+                    if(adhr.isAssured() == Boolean.parseBoolean(criteria)){
                         foundochurence.add(adhr);
                     }
                 }
@@ -213,4 +232,5 @@ public class GestionAdherents implements Serializable {
 
         return null;
     }
+
 }
