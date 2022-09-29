@@ -17,7 +17,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +26,7 @@ public class GestionClubs {
 
     private static List<Club> clubList = new ArrayList<>();
 
-    public static void createFile(){
+    public static void createFile() {
 
         File file = new File("./data/club.xml");
         boolean foldersuccess = true;
@@ -39,7 +38,7 @@ public class GestionClubs {
         }
 
         // check if club.xml exists, if not create it
-        if(!file.exists() && foldersuccess){
+        if (!file.exists() && foldersuccess) {
             try {
                 fileexists = file.createNewFile();
             } catch (IOException e) {
@@ -47,7 +46,7 @@ public class GestionClubs {
             }
         }
 
-        if(fileexists){
+        if (fileexists) {
             // add root info and node: 'clubs'
             try {
                 // xml parser
@@ -73,10 +72,11 @@ public class GestionClubs {
         }
     }
 
-    public static boolean saveFile(){
+    public static boolean saveFile() {
+        createFile(); // create file if does not exists
+
 
         // parse content of clubList into xml and save it into club.xml
-
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -84,7 +84,7 @@ public class GestionClubs {
             Document document = documentBuilder.newDocument();
             Element rootElement = document.createElement("clubs"); // <clubs>
 
-            for(Club club : getClubs()){
+            for (Club club : getClubs()) {
                 Element xclub = document.createElement("club");
                 xclub.setAttribute("id", String.valueOf(club.getClubId()));
 
@@ -131,7 +131,7 @@ public class GestionClubs {
         return false;
     }
 
-    public static boolean loadFile(){
+    public static boolean loadFile() {
 
         // parse into xml
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -144,7 +144,7 @@ public class GestionClubs {
             NodeList clubs = root.getElementsByTagName("club");
 
 
-            for(int i = 0; i < clubs.getLength(); i++){
+            for (int i = 0; i < clubs.getLength(); i++) {
                 Node node = clubs.item(i);
 
                 Element xclub = (Element) node;
@@ -180,15 +180,14 @@ public class GestionClubs {
     }
 
     /**
-     *
      * Add Club into clubList
      * Auto check if the id is not already used, if yes then set the id to the next available id
-     * **/
+     **/
     public static void addClub(Club club) {
         int latestclubid = 1;
 
-        if(clubList.size() > 0){
-            latestclubid = clubList.size()+1;
+        if (clubList.size() > 0) {
+            latestclubid = clubList.size() + 1;
         }
 
         club.setClubId(latestclubid);
@@ -196,14 +195,14 @@ public class GestionClubs {
     }
 
     // remove club from clubList
-    public static void removeClub(Club club) {
-        clubList.remove(club);
+    public static boolean removeClub(Club club) {
+        return clubList.remove(club);
     }
 
     // edit club from clubList
     public static void editClub(Club club) {
-        for(Club c : clubList){
-            if(c.getClubId() == club.getClubId()){
+        for (Club c : clubList) {
+            if (c.getClubId() == club.getClubId()) {
                 c.setClubNom(club.getClubNom());
                 c.setClubAdresse(club.getClubAdresse());
                 c.setClubContact(club.getClubContact());
@@ -266,8 +265,8 @@ public class GestionClubs {
     }
 
     public static Club getClubsByName(String clubname) {
-        for(Club club : clubList){
-            if(club.getClubNom().equals(clubname)){
+        for (Club club : clubList) {
+            if (club.getClubNom().equals(clubname)) {
                 return club;
             }
         }
@@ -276,8 +275,8 @@ public class GestionClubs {
 
     public static Club getClubByName(String entity) {
         Club clubresult = null;
-        for(Club club : clubList){
-            if(club.getClubNom().equals(entity)){
+        for (Club club : clubList) {
+            if (club.getClubNom().equals(entity)) {
                 clubresult = club;
             }
         }
@@ -286,19 +285,19 @@ public class GestionClubs {
 
     public static Club getClubById(int clubId) {
         Club clubresult = null;
-        for(Club club : clubList){
-            if(club.getClubId() == clubId){
+        for (Club club : clubList) {
+            if (club.getClubId() == clubId) {
                 clubresult = club;
             }
         }
         return clubresult;
     }
 
-    public Club getClubByIndex(int clubId){
+    public Club getClubByIndex(int clubId) {
         Club club = null;
         int i = 0;
-        while(i < clubList.size() && club == null){
-            if(clubList.get(i).getClubId() == clubId){
+        while (i < clubList.size() && club == null) {
+            if (clubList.get(i).getClubId() == clubId) {
                 club = clubList.get(i);
             }
             i++;

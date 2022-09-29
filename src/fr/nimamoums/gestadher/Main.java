@@ -46,6 +46,8 @@ public class Main {
             return;
         }
 
+        System.out.println(GestionAdherents.getAdherents().size());
+
         Adherent adh = new Adherent(
                 GestionAdherents.getAdherents().size(),
                 "name",
@@ -60,7 +62,7 @@ public class Main {
                 "mail",
                 "loisir",
                 true,
-                false,
+                true,
                 false,
                 "Gaucher",
                 "Sabre",

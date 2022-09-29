@@ -1,20 +1,20 @@
 package fr.nimamoums.gestadher.ui;
 
-import fr.nimamoums.gestadher.user.adherent.Adherent;
-import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
-import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
-import fr.nimamoums.gestadher.user.adherent.categorie.GestionCategories;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
-import fr.nimamoums.gestadher.exception.FolderNotFoundException;
+import fr.nimamoums.gestadher.user.adherent.Adherent;
+import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
+import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
+import fr.nimamoums.gestadher.user.adherent.categorie.GestionCategories;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class MainUI {
     private JTabbedPane tabbedPane1;
@@ -64,6 +64,8 @@ public class MainUI {
     private JList lSt_cats;
     private JTextArea fTf_catmember;
     private JTextArea fTf_infocat;
+    private JPanel catPane;
+    private JScrollBar scrollBar1;
 
     private boolean editmode = false;
 
@@ -80,19 +82,18 @@ public class MainUI {
             cBx_categorie.addItem(categorie.getNom() + " - " + categorie.getCode());
         }
 
-        for(Club club : GestionClubs.getClubs()){
+        for (Club club : GestionClubs.getClubs()) {
             cBx_club.addItem(club.getClubNom());
         }
 
-        for(Adherent adherent : GestionAdherents.getAdherents()){
+        for (Adherent adherent : GestionAdherents.getAdherents()) {
             cBx_listentities.addItem(adherent.getNom().toUpperCase() + " " + adherent.getPrenom());
         }
 
 
-
         // categorie tab
         DefaultListModel listModel = new DefaultListModel();
-        for(Categorie categorie : GestionCategories.getCategories()){
+        for (Categorie categorie : GestionCategories.getCategories()) {
             listModel.add(listModel.size(), categorie.getNom() + " - " + categorie.getCode());
         }
         lSt_cats.setModel(listModel);
@@ -126,7 +127,7 @@ public class MainUI {
             emptyFields();
         });
         bTn_del.addActionListener(e -> {
-            onbTn_del();
+            onbTn_del(tabbedPane1.getSelectedIndex());
         });
 
         // checkboxs
@@ -202,7 +203,7 @@ public class MainUI {
     }
 
     private void onlSt_cats(ListSelectionEvent e) {
-        if(!e.getValueIsAdjusting()){
+        if (!e.getValueIsAdjusting()) {
             String[] cat = lSt_cats.getSelectedValue().toString().split(" - ");
             Categorie categorie = GestionCategories.getCategoryByName(cat[0]);
 
@@ -213,14 +214,18 @@ public class MainUI {
             catInfo.append("Age Max : " + categorie.getAnnee_max() + "\n");
             fTf_infocat.setText(catInfo.toString());
 
+            JScrollPane scrollV = new JScrollPane(fTf_catmember, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            fTf_catmember.setAutoscrolls(true);
+            //catPane.add(scrollV);
+
             StringBuilder catMemberString = new StringBuilder();
             int i = 0;
-            for(Adherent adherent : GestionAdherents.getAdherents()){
+            for (Adherent adherent : GestionAdherents.getAdherents()) {
                 // if adherent has categorie
-                if(adherent.getCategorie() != null){
-                    if(adherent.getCategorie().getNom().equals(categorie.getNom())){
+                if (adherent.getCategorie() != null) {
+                    if (adherent.getCategorie().getNom().equals(categorie.getNom())) {
                         i += 1;
-                        catMemberString.append("Membre N°"+ i + " : " + adherent.getNom().toUpperCase()).append(" ").append(adherent.getPrenom() + "\n");
+                        catMemberString.append("Membre N°" + i + " : " + adherent.getNom().toUpperCase()).append(" ").append(adherent.getPrenom() + "\n");
                     }
                 }
             }
@@ -229,11 +234,11 @@ public class MainUI {
     }
 
     private void emptyFields() {
-        for(int i = 0; i < adhr_panel.getComponentCount(); i++){
-            if(adhr_panel.getComponent(i) instanceof JTextField){
+        for (int i = 0; i < adhr_panel.getComponentCount(); i++) {
+            if (adhr_panel.getComponent(i) instanceof JTextField) {
                 ((JTextField) adhr_panel.getComponent(i)).setText("");
             } else {
-                if(adhr_panel.getComponent(i) instanceof JCheckBox){
+                if (adhr_panel.getComponent(i) instanceof JCheckBox) {
                     ((JCheckBox) adhr_panel.getComponent(i)).setSelected(false);
                 }
             }
@@ -249,22 +254,22 @@ public class MainUI {
     private void setEntityList(int selectedIndex) {
         cBx_listentities.removeAllItems();
 
-        switch(selectedIndex){
+        switch (selectedIndex) {
             case 0:
                 lBl_entity_name.setText("Adhérents: ");
-                for(Adherent adherent : GestionAdherents.getAdherents()){
+                for (Adherent adherent : GestionAdherents.getAdherents()) {
                     cBx_listentities.addItem(adherent.getNom().toUpperCase() + " " + adherent.getPrenom());
                 }
                 break;
             case 1:
                 lBl_entity_name.setText("Clubs: ");
-                for(Club club : GestionClubs.getClubs()){
+                for (Club club : GestionClubs.getClubs()) {
                     cBx_listentities.addItem(club.getClubNom());
                 }
                 break;
             case 2:
                 lBl_entity_name.setText("Catégories: ");
-                for(Categorie categorie : GestionCategories.getCategories()){
+                for (Categorie categorie : GestionCategories.getCategories()) {
                     cBx_listentities.addItem(categorie.getNom());
                 }
                 break;
@@ -276,14 +281,14 @@ public class MainUI {
         String entity = (String) cb.getSelectedItem();
         int selectedIndex = tabbedPane1.getSelectedIndex();
 
-        switch(selectedIndex){
+        switch (selectedIndex) {
             case 0:
                 // don't set any information in textbox if no entity is selected or if entity is null
-                if(entity == null || entity.equals("")){
+                if (entity == null || entity.equals("")) {
                     return;
                 }
 
-                Adherent adherent = GestionAdherents.getAdherentByName(entity);
+                Adherent adherent = GestionAdherents.getAdherentByFullName(entity);
 
                 // set text of fields
                 tF_name.setText(adherent.getNom());
@@ -298,16 +303,23 @@ public class MainUI {
                 tF_nationality.setText(adherent.getNationalite());
                 tF_pc.setText(adherent.getCode_postal());
 
+                if(adherent.isReduction2emeadhere()){
+                    lBl_reduc.setText("2MIF");
+                }
+                if(adherent.isReduction3andplusadhere()){
+                    lBl_reduc.setText("3MIF+");
+                }
+
                 // set club only if it's not null
-                if(adherent.getClub() != null){
+                if (adherent.getClub() != null) {
                     Club adhrclub = GestionClubs.getClubById(adherent.getClub().getClubId());
-                    cBx_club.setSelectedItem(adhrclub.getClubId());
+                    cBx_club.setSelectedItem(adhrclub.getClubId()-1);
                 }
 
                 // set categorie only if it's not null
-                if(adherent.getCategorie() != null){
+                if (adherent.getCategorie() != null) {
                     Categorie adhrcat = GestionCategories.getCategoryByCode(adherent.getCategorie().getCode());
-                    cBx_categorie.setSelectedIndex(adhrcat.getCatID());
+                    cBx_categorie.setSelectedIndex(adhrcat.getCatID()-1);
                 }
 
 
@@ -315,29 +327,29 @@ public class MainUI {
                 lBl_entity_id.setText(String.valueOf(adherent.getAdherentId()));
 
                 // set selected category
-                if(adherent.getGenre().toLowerCase().equalsIgnoreCase("f") || adherent.getGenre().toLowerCase().equalsIgnoreCase("femme")){
+                if (adherent.getGenre().toLowerCase().equalsIgnoreCase("f") || adherent.getGenre().toLowerCase().equalsIgnoreCase("femme")) {
                     cB_fsex.setSelected(true);
                 } else {
                     cB_msex.setEnabled(true);
                 }
 
-                if(adherent.isAssured()){
+                if (adherent.isAssured()) {
                     cH_assure.setSelected(true);
                 } else {
                     cH_assure.setSelected(false);
                 }
 
-                if(adherent.getCatPratique().toLowerCase().equalsIgnoreCase("loisir")){
+                if (adherent.getCatPratique().toLowerCase().equalsIgnoreCase("loisir")) {
                     cH_loisir.setSelected(true);
                 } else {
                     cH_competitive.setSelected(true);
                 }
 
-                if(adherent.getArme().toLowerCase().equalsIgnoreCase("fleuret")){
+                if (adherent.getArme().toLowerCase().equalsIgnoreCase("fleuret")) {
                     cH_fleuret.setSelected(true);
                     cH_sabre.setSelected(false);
                     cH_sword.setSelected(false);
-                } else if(adherent.getArme().toLowerCase().equalsIgnoreCase("sabre")){
+                } else if (adherent.getArme().toLowerCase().equalsIgnoreCase("sabre")) {
                     cH_sabre.setSelected(true);
                     cH_fleuret.setSelected(false);
                     cH_sword.setSelected(false);
@@ -348,11 +360,10 @@ public class MainUI {
                 }
 
 
-
                 break;
             case 1:
 
-                if(entity == null || entity.equals("")){
+                if (entity == null || entity.equals("")) {
                     return;
                 }
 
@@ -372,15 +383,15 @@ public class MainUI {
     }
 
     private void onbTn_Adhredit(ActionEvent e, int selectedIndex) {
-        if(editmode == false){
+        if (editmode == false) {
             // enable edit mode
             editmode = true;
 
             JButton editbutton = (JButton) e.getSource();
             editbutton.setText("Enregistrer");
 
-            for(int i = 0; i < tabbedPane1.getComponents().length; i++){
-                if(adhr_panel.getComponents()[i] instanceof JTextField){
+            for (int i = 0; i < tabbedPane1.getComponents().length; i++) {
+                if (adhr_panel.getComponents()[i] instanceof JTextField) {
                     JTextField tF_textfield = (JTextField) adhr_panel.getComponents()[i];
                     tF_textfield.setEditable(true);
                 } else {
@@ -389,9 +400,9 @@ public class MainUI {
                 }
             }
         } else {
-            switch(selectedIndex){
+            switch (selectedIndex) {
                 case 0:
-                    if(verifyAdherentFields()){
+                    if (verifyAdherentFields()) {
                         int adherentId = Integer.parseInt(lBl_entity_id.getText());
                         String name = tF_name.getText();
                         String firstname = tF_fstname.getText();
@@ -410,21 +421,21 @@ public class MainUI {
 
                         // check if valid date, if not error and cancel update
                         try {
-                            birthdate = String.valueOf(LocalDate.parse(birthdate));
-                        } catch (DateTimeParseException ex){
+                            birthdate = String.valueOf(LocalDate.parse(birthdate.replace("/", "-"), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                        } catch (DateTimeParseException ex) {
                             JOptionPane.showMessageDialog(null, "La date de naissance n'est pas au bon format");
                             return;
                         }
 
-                        if(cH_fleuret.isSelected()){
+                        if (cH_fleuret.isSelected()) {
                             arme = "fleuret";
-                        } else if(cH_sabre.isSelected()){
+                        } else if (cH_sabre.isSelected()) {
                             arme = "sabre";
                         } else {
                             arme = "epee";
                         }
 
-                        if(cB_msex.isSelected()){
+                        if (cB_msex.isSelected()) {
                             genre = "m";
                         } else {
                             genre = "f";
@@ -434,7 +445,7 @@ public class MainUI {
                         adherent.setNom(name);
                         adherent.setPrenom(firstname);
                         adherent.setGenre(genre);
-                        adherent.setDate_naissance(LocalDate.parse(birthdate));
+                        adherent.setDate_naissance(null);
                         adherent.setAdresse(address);
                         adherent.setTel(tel);
                         adherent.setMail(mail);
@@ -457,7 +468,7 @@ public class MainUI {
                     break;
                 case 1:
 
-                    if(verifyClubFields()){
+                    if (verifyClubFields()) {
                         int clubId = Integer.parseInt(lBl_entity_id.getText());
                         String clubNom = tF_clubNom.getText();
                         String clubAdresse = tF_clubAdresse.getText();
@@ -465,7 +476,6 @@ public class MainUI {
                         String clubMail = tF_clubMail.getText();
                         String clubTel = tF_clubTel.getText();
                         String clubSite = tF_clubSite.getText();
-
 
 
                         Club club = GestionClubs.getClubById(clubId);
@@ -489,22 +499,22 @@ public class MainUI {
     private void forceUpdateEntityList(int i) {
         cBx_listentities.removeAllItems();
 
-        switch (i){
+        switch (i) {
             case 0:
                 // update adherent list
-                for(Adherent adherent : GestionAdherents.getAdherents()){
+                for (Adherent adherent : GestionAdherents.getAdherents()) {
                     cBx_listentities.addItem(adherent.getNom().toUpperCase() + " " + adherent.getPrenom());
                 }
                 break;
             case 1:
                 // update club list
-                for(Club club : GestionClubs.getClubs()){
+                for (Club club : GestionClubs.getClubs()) {
                     cBx_listentities.addItem(club.getClubNom());
                 }
                 break;
             case 2:
                 // update category list
-                for(Categorie categorie : GestionCategories.getCategories()){
+                for (Categorie categorie : GestionCategories.getCategories()) {
                     cBx_listentities.addItem(categorie.getNom() + " - " + categorie.getCode());
                 }
                 break;
@@ -512,39 +522,39 @@ public class MainUI {
     }
 
     private boolean verifyAdherentFields() {
-        if(tF_fstname.getText().isEmpty()){
+        if (tF_fstname.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ prénom est vide");
             return false;
         }
-        if(tF_name.getText().isEmpty()){
+        if (tF_name.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ nom est vide");
             return false;
         }
-        if(tF_birthdate.getText().isEmpty()){
+        if (tF_birthdate.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ date de naissance est vide");
             return false;
         }
-        if(tF_adr.getText().isEmpty()){
+        if (tF_adr.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ adresse est vide");
             return false;
         }
-        if(tF_phone.getText().isEmpty()){
+        if (tF_phone.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ téléphone est vide");
             return false;
         }
-        if(tF_mail.getText().isEmpty()){
+        if (tF_mail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ mail est vide");
             return false;
         }
-        if(tF_montant.getText().isEmpty()){
+        if (tF_montant.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ montant est vide");
             return false;
         }
-        if(tF_dateinc.getText().isEmpty()){
+        if (tF_dateinc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Le champ date d'adhésion est vide");
             return false;
         }
-        if(!cB_msex.isSelected() && !cB_fsex.isSelected()){
+        if (!cB_msex.isSelected() && !cB_fsex.isSelected()) {
             JOptionPane.showMessageDialog(null, "Genre non séléctionné");
             return false;
         }
@@ -559,21 +569,21 @@ public class MainUI {
         String search = tF_filter_search.getText();
         switch (tabbedPane1.getSelectedIndex()) {
             case 0:
-                for(Adherent adherent : GestionAdherents.getAdherents()){
-                    if(searchby.equals("Nom")){
-                        if(adherent.getNom().toLowerCase().contains(search.toLowerCase())){
+                for (Adherent adherent : GestionAdherents.getAdherents()) {
+                    if (searchby.equals("Nom")) {
+                        if (adherent.getNom().toLowerCase().contains(search.toLowerCase())) {
                             ResultatRecherche.addResult(adherent);
                         }
-                    } else if(searchby.equals("Prénom")){
-                        if(adherent.getPrenom().toLowerCase().contains(search.toLowerCase())){
+                    } else if (searchby.equals("Prénom")) {
+                        if (adherent.getPrenom().toLowerCase().contains(search.toLowerCase())) {
                             ResultatRecherche.addResult(adherent);
                         }
-                    } else if(searchby.equals("Club")){
-                        if(adherent.getClub().getClubNom().toLowerCase().contains(search.toLowerCase())){
+                    } else if (searchby.equals("Club")) {
+                        if (adherent.getClub().getClubNom().toLowerCase().contains(search.toLowerCase())) {
                             ResultatRecherche.addResult(adherent);
                         }
-                    } else if(searchby.equals("Catégorie")){
-                        if(adherent.getCategorie().getCode().toLowerCase().contains(search.toLowerCase())){
+                    } else if (searchby.equals("Catégorie")) {
+                        if (adherent.getCategorie().getCode().toLowerCase().contains(search.toLowerCase())) {
                             ResultatRecherche.addResult(adherent);
                         }
                     }
@@ -591,14 +601,15 @@ public class MainUI {
     }
 
     private void onbTn_add(int selectedIndex) {
-        if(editmode == true){
+        if (editmode == true) {
             // cancel edit mode
             editmode = false;
             bTn_add.setText("Ajouter");
             disable_components();
         } else {
-            switch(selectedIndex){
+            switch (selectedIndex) {
                 case 0:
+
                     // cas: ajouter adherent
                     AjouterAdherentUI dialog = new AjouterAdherentUI();
                     for (Club club : GestionClubs.getClubs()) {
@@ -613,7 +624,7 @@ public class MainUI {
 
                 case 1:
                     // cas: ajouter club
-                    if(verifyClubFields()){
+                    if (verifyClubFields()) {
                         String name = tF_clubNom.getText();
                         String adr = tF_clubAdresse.getText();
                         String contact = tF_clubContact.getText();
@@ -631,27 +642,27 @@ public class MainUI {
     }
 
     private boolean verifyClubFields() {
-        if(tF_clubNom.getText().equalsIgnoreCase("")){
+        if (tF_clubNom.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Le champ nom du club est vide");
             return false;
         }
 
-        if(tF_clubAdresse.getText().equalsIgnoreCase("")){
+        if (tF_clubAdresse.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Le champ adresse du club est vide");
             return false;
         }
 
-        if(tF_clubTel.getText().equalsIgnoreCase("")){
+        if (tF_clubTel.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Le champ téléphone du club est vide");
             return false;
         }
 
-        if(tF_clubMail.getText().equalsIgnoreCase("")){
+        if (tF_clubMail.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Le champ mail du club est vide");
             return false;
         }
 
-        if(tF_clubSite.getText().equalsIgnoreCase("")){
+        if (tF_clubSite.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Le champ site du club est vide");
             return false;
         }
@@ -660,8 +671,8 @@ public class MainUI {
     }
 
     private void disable_components() {
-        for(int i = 0; i < adhr_panel.getComponents().length; i++){
-            if(adhr_panel.getComponents()[i] instanceof JTextField){
+        for (int i = 0; i < adhr_panel.getComponents().length; i++) {
+            if (adhr_panel.getComponents()[i] instanceof JTextField) {
                 JTextField tF_textfield = (JTextField) adhr_panel.getComponents()[i];
                 tF_textfield.setText(null);
                 tF_textfield.setEditable(false);
@@ -747,29 +758,69 @@ public class MainUI {
 
     }
 
-    private void onbTn_del() {
-        int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
+    private void onbTn_del(int i) {
+        switch(i){
+            case 0:
+                int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    boolean success = GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()));
 
-            boolean success = GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()));
-            if(success == true) {
-                cBx_categorie.remove(cBx_listentities.getSelectedIndex());
-                JOptionPane.showMessageDialog(null, "Adherent supprimé avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
-                clearFields();
+                    if (success == true) {
+                        cBx_listentities.remove(cBx_listentities.getSelectedIndex());
+                        JOptionPane.showMessageDialog(null, "Adherent supprimé avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
+                        clearFields(tabbedPane1.getSelectedIndex());
+                        List<Adherent> adherentList = GestionAdherents.getAdherents();
+                        GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()-1));
+                        GestionAdherents.saveAdherents();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la suppression de l'adherent", "Suppression", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+            case 1:
+                int aresultdelete = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer ce club ?", "Suppression", JOptionPane.YES_NO_OPTION);
+                if (aresultdelete == JOptionPane.YES_OPTION) {
 
-                GestionAdherents.saveAdherents();
-            } else {
-                JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la suppression de l'adherent", "Suppression", JOptionPane.ERROR_MESSAGE);
-            }
+                    boolean success = GestionClubs.removeClub(GestionClubs.getClubById(cBx_listentities.getSelectedIndex()));
+                    if (success == true) {
+                        cBx_categorie.remove(cBx_listentities.getSelectedIndex());
+                        JOptionPane.showMessageDialog(null, "Club supprimé avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
+                        clearFields(tabbedPane1.getSelectedIndex());
+                        forceUpdateEntityList(1);
+                        GestionAdherents.saveAdherents();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la suppression du club", "Suppression", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
         }
     }
 
-    private void clearFields() {
+    private void clearFields(int i) {
+        switch(i){
+            case 0:
+                tF_name.setText(null);
+                tF_fstname.setText(null);
+                tF_citybirth.setText(null);
+                tF_birthdate.setText(null);
+                tF_adr.setText(null);
 
+
+                break;
+            case 1:
+                tF_clubNom.setText(null);
+                tF_clubAdresse.setText(null);
+                tF_clubContact.setText(null);
+                tF_clubTel.setText(null);
+                tF_clubMail.setText(null);
+                tF_clubSite.setText(null);
+
+                break;
+        }
     }
 
-    public static void debug_show_lists(){
-        for(Adherent adh : GestionAdherents.getAdherents()){
+    public static void debug_show_lists() {
+        for (Adherent adh : GestionAdherents.getAdherents()) {
             // print infos possible abt adherent
             System.out.println(adh.getAdherentId());
             System.out.println(adh.getNom());

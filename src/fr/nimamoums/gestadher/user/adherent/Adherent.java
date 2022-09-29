@@ -1,31 +1,29 @@
 package fr.nimamoums.gestadher.user.adherent;
 
 import fr.nimamoums.gestadher.club.Club;
+import fr.nimamoums.gestadher.materiel.interfaces.Louable;
 import fr.nimamoums.gestadher.user.User;
 import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Adherent extends User implements Serializable {
     private Categorie categorie;
     private Club club;
     private int adherentId;
-
     private LocalDate date_adhesion;
     private String catpratique;
-
     private String arme;
-
     private double cotisation;
-
     private boolean assured;
-
     private boolean reduction2emeadhere;
-
     private boolean reduction3andplusadhere;
-
     private double montant;
+
+    private List<Louable> materielloue = new ArrayList<>();
 
     //////////////////////////////////////////////////////////////////////////
     // CONSTRUCTEURS
@@ -34,14 +32,14 @@ public class Adherent extends User implements Serializable {
     public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String catpratique, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, String arme, Club club, double montant, Categorie categorie) {
         super(nom, prenom, genre, adresse, tel, mail, nationalite, pays_ville_naissance, code_postal, date_naissance);
 
-        for(Adherent adherent : GestionAdherents.getAdherents()){
-            if(adherent.getAdherentId() == adherentId){
+        for (Adherent adherent : GestionAdherents.getAdherents()) {
+            if (adherent.getAdherentId() == adherentId) {
                 adherentId++;
             }
         }
 
         this.adherentId = adherentId;
-        this.date_adhesion =  LocalDate.now();
+        this.date_adhesion = LocalDate.now();
         this.catpratique = catpratique;
         this.assured = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
@@ -57,14 +55,14 @@ public class Adherent extends User implements Serializable {
     public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String catpratique, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, String arme, Club club, double montant) {
         super(nom, prenom, genre, adresse, tel, mail, nationalite, pays_ville_naissance, code_postal, date_naissance);
 
-        for(Adherent adherent : GestionAdherents.getAdherents()){
-            if(adherent.getAdherentId() == adherentId){
+        for (Adherent adherent : GestionAdherents.getAdherents()) {
+            if (adherent.getAdherentId() == adherentId) {
                 adherentId++;
             }
         }
 
         this.adherentId = adherentId;
-        this.date_adhesion =  LocalDate.now();
+        this.date_adhesion = LocalDate.now();
         this.catpratique = catpratique;
         this.assured = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
@@ -81,14 +79,14 @@ public class Adherent extends User implements Serializable {
     public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String catpratique, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, double montant) {
         super(nom, prenom, genre, adresse, tel, mail, nationalite, pays_ville_naissance, code_postal, date_naissance);
 
-        for(Adherent adherent : GestionAdherents.getAdherents()){
-            if(adherent.getAdherentId() == adherentId){
+        for (Adherent adherent : GestionAdherents.getAdherents()) {
+            if (adherent.getAdherentId() == adherentId) {
                 adherentId++;
             }
         }
 
         this.adherentId = adherentId;
-        this.date_adhesion =  LocalDate.now();
+        this.date_adhesion = LocalDate.now();
         this.catpratique = catpratique; // loisir ou compet
         this.assured = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
@@ -102,14 +100,14 @@ public class Adherent extends User implements Serializable {
     public Adherent(int adherentId, String nom, String prenom, String genre, String nationalite, LocalDate date_naissance, String pays_ville_naissance, String adresse, String code_postal, String tel, String mail, String catpratique, boolean hasAssurance, boolean reduction2emeadhere, boolean reduction3andplusadhere, String lateralite, String arme, double montant, Categorie categorie) {
         super(nom, prenom, genre, adresse, tel, mail, nationalite, pays_ville_naissance, code_postal, date_naissance);
 
-        for(Adherent adherent : GestionAdherents.getAdherents()){
-            if(adherent.getAdherentId() == adherentId){
+        for (Adherent adherent : GestionAdherents.getAdherents()) {
+            if (adherent.getAdherentId() == adherentId) {
                 adherentId++;
             }
         }
 
         this.adherentId = adherentId;
-        this.date_adhesion =  LocalDate.now();
+        this.date_adhesion = LocalDate.now();
         this.catpratique = catpratique;
         this.assured = hasAssurance;
         this.reduction2emeadhere = reduction2emeadhere;
@@ -220,5 +218,17 @@ public class Adherent extends User implements Serializable {
 
     public void setArme(String arme) {
         this.arme = arme;
+    }
+
+    public List<Louable> getMaterielloue() {
+        return materielloue;
+    }
+
+    public void addMaterialLoue(Louable l) {
+        materielloue.add(l);
+    }
+
+    public void removeMaterialLoue(Louable l) {
+        materielloue.remove(l);
     }
 }

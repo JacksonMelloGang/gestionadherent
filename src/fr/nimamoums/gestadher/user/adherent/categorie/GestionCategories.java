@@ -28,7 +28,7 @@ public class GestionCategories {
 
     private static final List<Categorie> categorieList = new ArrayList<>();
 
-    public static void createFile(){
+    public static void createFile() {
 
         File file = new File("./data/categorie.xml");
         boolean foldersuccess = true;
@@ -40,7 +40,7 @@ public class GestionCategories {
         }
 
         // check if categorie.xml exists, if not create it
-        if(!file.exists() && foldersuccess){
+        if (!file.exists() && foldersuccess) {
             try {
                 fileexists = file.createNewFile();
             } catch (IOException e) {
@@ -49,7 +49,7 @@ public class GestionCategories {
             }
         }
 
-        if(fileexists){
+        if (fileexists) {
             // add root info and node: 'categories'
             try {
                 // xml parser
@@ -76,7 +76,7 @@ public class GestionCategories {
         }
     }
 
-    public static boolean saveFile(){
+    public static boolean saveFile() {
 
         // parse content of categorieList into xml and save it into categorie.xml
 
@@ -87,7 +87,7 @@ public class GestionCategories {
             Document document = documentBuilder.newDocument();
             Element rootElement = document.createElement("categories"); // <categories>
 
-            for(Categorie categorie : categorieList){
+            for (Categorie categorie : categorieList) {
                 Element xcategorie = document.createElement("categorie");
                 xcategorie.setAttribute("id", String.valueOf(categorie.getCatID()));
 
@@ -128,7 +128,7 @@ public class GestionCategories {
         return false;
     }
 
-    public static boolean loadFile(){
+    public static boolean loadFile() {
 
         // parse into xml
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -141,7 +141,7 @@ public class GestionCategories {
             NodeList categories = root.getElementsByTagName("categorie");
 
 
-            for(int i = 0; i < categories.getLength(); i++){
+            for (int i = 0; i < categories.getLength(); i++) {
                 Node node = categories.item(i);
 
                 Element xcategorie = (Element) node;
@@ -167,12 +167,12 @@ public class GestionCategories {
 
         return false;
     }
-    
-    public static Categorie getCategoryByCode(String Categorie_code){
+
+    public static Categorie getCategoryByCode(String Categorie_code) {
         Categorie Categorie = null;
         int i = 0;
-        while(i < categorieList.size() && Categorie == null){
-            if(categorieList.get(i).getCode().equalsIgnoreCase(Categorie_code)){
+        while (i < categorieList.size() && Categorie == null) {
+            if (categorieList.get(i).getCode().equalsIgnoreCase(Categorie_code)) {
                 Categorie = categorieList.get(i);
             }
             i++;
@@ -181,11 +181,11 @@ public class GestionCategories {
         return Categorie;
     }
 
-    public static void addCategorie(Categorie categorie){
+    public static void addCategorie(Categorie categorie) {
         categorieList.add(categorie);
     }
 
-    public static void removeCategorie(Categorie categorie){
+    public static void removeCategorie(Categorie categorie) {
         categorieList.remove(categorie);
     }
 
@@ -195,31 +195,31 @@ public class GestionCategories {
 
     public static Collection<Object> search(String searchby, String search) {
         Collection<Object> result = new ArrayList<>();
-        switch(searchby){
+        switch (searchby) {
             case "nom":
-                for(Categorie categorie : categorieList){
-                    if(categorie.getNom().contains(search)){
+                for (Categorie categorie : categorieList) {
+                    if (categorie.getNom().contains(search)) {
                         result.add(categorie);
                     }
                 }
                 break;
             case "code":
-                for(Categorie categorie : categorieList){
-                    if(categorie.getCode().contains(search)){
+                for (Categorie categorie : categorieList) {
+                    if (categorie.getCode().contains(search)) {
                         result.add(categorie);
                     }
                 }
                 break;
             case "anneemin":
-                for(Categorie categorie : categorieList){
-                    if(categorie.getAnnee_min().compareTo(Year.parse(search)) == 0){
+                for (Categorie categorie : categorieList) {
+                    if (categorie.getAnnee_min().compareTo(Year.parse(search)) == 0) {
                         result.add(categorie);
                     }
                 }
                 break;
             case "anneemax":
-                for(Categorie categorie : categorieList){
-                    if(categorie.getAnnee_max().compareTo(Year.parse(search)) == 0){
+                for (Categorie categorie : categorieList) {
+                    if (categorie.getAnnee_max().compareTo(Year.parse(search)) == 0) {
                         result.add(categorie);
                     }
                 }
@@ -232,8 +232,8 @@ public class GestionCategories {
     public static Categorie getCategoryByName(String s) {
         Categorie categorie = null;
         int i = 0;
-        while(i < categorieList.size() && categorie == null){
-            if(categorieList.get(i).getNom().equalsIgnoreCase(s)){
+        while (i < categorieList.size() && categorie == null) {
+            if (categorieList.get(i).getNom().equalsIgnoreCase(s)) {
                 categorie = categorieList.get(i);
             }
             i++;

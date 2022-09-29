@@ -17,7 +17,6 @@ public abstract class User implements Serializable {
     private LocalDate date_naissance;
 
 
-
     public User(String nom, String prenom, String genre, String adresse, String tel, String mail, String nationalite, String pays_ville_naissance, String ville_code_postal, LocalDate date_naissance) {
         this.nom = nom;
         this.prenom = prenom;

@@ -17,7 +17,7 @@ public class Categorie implements Serializable {
 
     private double cotisation;
 
-    public Categorie(int catid, String nom, String code, Year annee_min, Year annee_max){
+    public Categorie(int catid, String nom, String code, Year annee_min, Year annee_max) {
 
         this.catId = catid;
         this.nom = nom;

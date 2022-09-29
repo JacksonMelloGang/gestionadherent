@@ -1,16 +1,17 @@
 package fr.nimamoums.gestadher.ui;
 
-import fr.nimamoums.gestadher.user.adherent.Adherent;
-import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
-import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
 import fr.nimamoums.gestadher.club.Club;
 import fr.nimamoums.gestadher.club.GestionClubs;
+import fr.nimamoums.gestadher.user.adherent.Adherent;
+import fr.nimamoums.gestadher.user.adherent.GestionAdherents;
+import fr.nimamoums.gestadher.user.adherent.categorie.Categorie;
 import fr.nimamoums.gestadher.user.adherent.categorie.GestionCategories;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class AjouterAdherentUI extends JDialog {
@@ -39,6 +40,7 @@ public class AjouterAdherentUI extends JDialog {
     private JCheckBox cH_sndmember;
     private JCheckBox cH_thmember;
     private JComboBox cBx_cat;
+    private JPanel pAne_addadhr;
 
     public AjouterAdherentUI() {
 
@@ -46,7 +48,7 @@ public class AjouterAdherentUI extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        for(Categorie categorie : GestionCategories.getCategories()){
+        for (Categorie categorie : GestionCategories.getCategories()) {
             cBx_cat.addItem(categorie.getNom() + " - " + categorie.getCode());
         }
 
@@ -121,7 +123,7 @@ public class AjouterAdherentUI extends JDialog {
     }
 
     private void onmCheckBox_Selected(JCheckBox mCheckBox, JCheckBox fCheckBox) {
-        if(mCheckBox.isSelected()){
+        if (mCheckBox.isSelected()) {
             fCheckBox.setSelected(false);
         }
     }
@@ -133,7 +135,7 @@ public class AjouterAdherentUI extends JDialog {
     }
 
     private void oncH_sndmember(JCheckBox cH_sndmember, JCheckBox cH_thmember) {
-        if(cH_sndmember.isSelected()){
+        if (cH_sndmember.isSelected()) {
             cH_thmember.setSelected(false);
             cH_thmember.setEnabled(false);
         } else {
@@ -142,7 +144,7 @@ public class AjouterAdherentUI extends JDialog {
     }
 
     private void oncH_thmember(JCheckBox cH_thmember, JCheckBox cH_sndmember) {
-        if(cH_thmember.isSelected()){
+        if (cH_thmember.isSelected()) {
             cH_sndmember.setSelected(false);
             cH_sndmember.setEnabled(false);
         } else {
@@ -153,14 +155,14 @@ public class AjouterAdherentUI extends JDialog {
 
     private void showPlaceholder(FocusEvent e, String s) {
         JTextField textField = (JTextField) e.getSource();
-        if(textField.getText().isEmpty()){
+        if (textField.getText().isEmpty()) {
             textField.setText(s);
         }
     }
 
     private void hidePlaceholder(FocusEvent e, String s) {
         JTextField textField = (JTextField) e.getSource();
-        if(textField.getText().equals(s)){
+        if (textField.getText().equals(s)) {
             textField.setText("");
         }
     }
@@ -299,8 +301,8 @@ public class AjouterAdherentUI extends JDialog {
         isThMember = cH_thmember.isSelected();
 
         try {
-            dateBirth = LocalDate.parse(tF_date_birth.getText());
-        } catch (DateTimeParseException e){
+            dateBirth = LocalDate.parse(tF_date_birth.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (DateTimeParseException e) {
             Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(this, "Veuillez saisir la date de naissance de l'adhérent au format JJ/MM/AAAA");
             tF_date_birth.requestFocus();
@@ -327,39 +329,39 @@ public class AjouterAdherentUI extends JDialog {
         club = GestionClubs.getClubsByName(cBx_club.getSelectedItem().toString());
 
         // calcul montant (si pas de montant renseigné, on prend le montant par défaut)
-        montant = 0;
+        montant = tF_montant.getText().isEmpty() ? 0 : Double.parseDouble(tF_montant.getText());
 
         // calcul date naissance montant & 2nd member or 3third member of family
-        if(birthdate_year <= 2002){
+        if (birthdate_year <= 2002) {
             montant = montant + 255;
             // member family
-            if(isSndMember){
+            if (isSndMember) {
                 montant = montant - 33.75;
-            } else if(isThMember){
+            } else if (isThMember) {
                 montant = montant - 45;
             }
 
         } else {
-            if(birthdate_year <= 2011){
+            if (birthdate_year <= 2011) {
                 montant = montant + 220;
                 // member family
-                if(isSndMember){
+                if (isSndMember) {
                     montant = montant - 28.50;
-                } else if(isThMember){
+                } else if (isThMember) {
                     montant = montant - 38;
                 }
             } else {
                 montant = montant + 190;
                 // member family
-                if(isSndMember){
+                if (isSndMember) {
                     montant = montant - 24;
-                } else if(isThMember){
+                } else if (isThMember) {
                     montant = montant - 32;
                 }
             }
         }
         // calcul assure or not
-        if(!isAssure){
+        if (!isAssure) {
             montant = montant - 0.21;
         } else {
             montant = montant + 1.49;
@@ -368,7 +370,7 @@ public class AjouterAdherentUI extends JDialog {
         tF_montant.setText(String.valueOf(montant));
 
         int resultconfirm = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment ajouter cet adhérent ?\nMontant à payer: " + montant + "€");
-        if(resultconfirm != JOptionPane.YES_OPTION){
+        if (resultconfirm != JOptionPane.YES_OPTION) {
             return;
         }
 
@@ -392,26 +394,26 @@ public class AjouterAdherentUI extends JDialog {
         // Club club,
         // double montant
         Adherent adh = new Adherent(
-                        GestionAdherents.getAdherents().size(),
-                        name,
-                        firstName,
-                        sexe,
-                        nationality,
-                        LocalDate.of(birthdate_year, birthdate_month, birthdate_day),
-                        cityBirth,
-                        address,
-                        cpCity,
-                        tel,
-                        mail,
-                        act_pratique,
-                        isAssure,
-                        isSndMember,
-                        isThMember,
-                        "Gaucher",
-                        "fleuret",
-                        club,
-                        montant
-                );
+                GestionAdherents.getAdherents().size(),
+                name,
+                firstName,
+                sexe,
+                nationality,
+                LocalDate.of(birthdate_year, birthdate_month, birthdate_day),
+                cityBirth,
+                address,
+                cpCity,
+                tel,
+                mail,
+                act_pratique,
+                isAssure,
+                isSndMember,
+                isThMember,
+                "Gaucher",
+                armes,
+                club,
+                montant
+        );
 
         GestionAdherents.addAdherent(adh);
         GestionAdherents.saveAdherents();
@@ -419,14 +421,14 @@ public class AjouterAdherentUI extends JDialog {
         JOptionPane.showMessageDialog(this, "Adhérent ajouté !", "Ajout d'un adhérent", JOptionPane.INFORMATION_MESSAGE);
 
         // Clean everything when the new adherent has been registered
-        for (Component component : contentPane.getComponents()) {
+        for (Component component : pAne_addadhr.getComponents()) {
             if (component instanceof JTextField) {
                 ((JTextField) component).setText(null);
             } else {
-                if(component instanceof JComboBox){
+                if (component instanceof JComboBox) {
                     ((JComboBox) component).setSelectedIndex(0);
                 } else {
-                    if(component instanceof JCheckBox){
+                    if (component instanceof JCheckBox) {
                         ((JCheckBox) component).setSelected(false);
                     }
                 }

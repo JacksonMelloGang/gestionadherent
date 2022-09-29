@@ -22,8 +22,7 @@ public class GestionAdherents implements Serializable {
     }
 
 
-
-    public static Adherent getAdherentByIndex(int Adherentid){
+    public static Adherent getAdherentByIndex(int Adherentid) {
         Adherent adherent = null;
         int i = 0;
         while (i < adherentList.size() && adherent == null) {
@@ -36,11 +35,11 @@ public class GestionAdherents implements Serializable {
         return adherent;
     }
 
-    public static Adherent getAdherentByName(String name) {
+    public static Adherent getAdherentByFullName(String name) {
         Adherent adherent = null;
         int i = 0;
         while (i < adherentList.size() && adherent == null) {
-            if(name.split(" ").length > 1){
+            if (name.split(" ").length > 1) {
                 String nom = name.split(" ")[0];
                 String sndname = name.split(" ")[1];
                 if (adherentList.get(i).getNom().equalsIgnoreCase(nom) && adherentList.get(i).getPrenom().equalsIgnoreCase(sndname)) {
@@ -49,9 +48,10 @@ public class GestionAdherents implements Serializable {
             }
             i++;
         }
-
         return adherent;
     }
+
+
 
     public static Adherent getAdherentByFirstName(String name) {
         Adherent adherent = null;
@@ -68,13 +68,15 @@ public class GestionAdherents implements Serializable {
 
     public static void createFile() {
         File file = new File("./data/adherents.bin");
-        if(!file.getParentFile().exists()){
+        if (!file.getParentFile().exists()) {
             file.getParentFile().mkdir();
         }
 
-        if(!file.exists()){
+        if (!file.exists()) {
             try {
                 file.createNewFile();
+
+                saveAdherents();
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error while creating file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
@@ -83,7 +85,11 @@ public class GestionAdherents implements Serializable {
     }
 
     public static int saveAdherents() {
-        createFile();
+        File file = new File("./data/adherents.bin");
+        if(!file.exists()){
+            createFile();
+        }
+
         try {
             ObjectOutputStream objectInputStream = new ObjectOutputStream(new FileOutputStream("./data/adherents.bin"));
             objectInputStream.writeObject(adherentList);
@@ -97,22 +103,19 @@ public class GestionAdherents implements Serializable {
 
 
     public static boolean loadListofAdherentFromFile() throws FolderNotFoundException, FileNotFoundException {
-
         File file = new File("./data/adherents.bin");
-        if(!file.getParentFile().exists()){
-            throw new FolderNotFoundException("Folder not found");
+        if (!file.getParentFile().exists() || !file.exists()) {
+            createFile(); // create file if does not exists
         }
 
-        if(!file.exists()){
-            throw new FileNotFoundException("File not found");
-        }
 
-        try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))){
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
             adherentList = (List<Adherent>) objectInputStream.readObject();
         } catch (EOFException e) {
             //ignore (empty file)
+            JOptionPane.showMessageDialog(null, "Error while loading file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Error while loading file adherent.bin.\n " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (IOException e) {
@@ -122,7 +125,6 @@ public class GestionAdherents implements Serializable {
 
         return false;
     }
-
 
 
     public static void addAdherent(Adherent adherent) {
@@ -137,100 +139,100 @@ public class GestionAdherents implements Serializable {
         return adherentList;
     }
 
-    public static boolean isAdherent(Adherent adherent){
+    public static boolean isAdherent(Adherent adherent) {
         return adherentList.contains(adherent);
     }
 
     public static Collection<Adherent> search(String searchby, String criteria) {
         List<Adherent> foundochurence = new ArrayList<>();
-        switch(searchby.toLowerCase()){
+        switch (searchby.toLowerCase()) {
             case "nom":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getNom().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getNom().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "prenom":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getPrenom().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getPrenom().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "id":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getAdherentId() == Integer.parseInt(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getAdherentId() == Integer.parseInt(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "mail":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getMail().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getMail().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "tel":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getTel().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getTel().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "adresse":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getAdresse().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getAdresse().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "ville_naissance":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getPays_ville_naissance().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getPays_ville_naissance().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "codepostal":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getCode_postal().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getCode_postal().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "date_naissance":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getDate_naissance().isEqual(LocalDate.parse(criteria))){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getDate_naissance().isEqual(LocalDate.parse(criteria))) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "sexe":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getGenre().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getGenre().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "nationalite":
-                for(Adherent adhr : adherentList){
-                    if(adhr.getNationalite().contains(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.getNationalite().contains(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
             case "assurance":
-                for(Adherent adhr : adherentList){
-                    if(adhr.isAssured() == Boolean.parseBoolean(criteria)){
+                for (Adherent adhr : adherentList) {
+                    if (adhr.isAssured() == Boolean.parseBoolean(criteria)) {
                         foundochurence.add(adhr);
                     }
                 }
                 break;
         }
 
-        return null;
+        return foundochurence;
     }
 
 }
