@@ -763,10 +763,10 @@ public class MainUI {
             case 0:
                 int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION) {
-                    boolean success = GestionAdherents.removeAdherent(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()));
+                    boolean success = GestionAdherents.getAdherents().remove(GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex()));
 
                     if (success == true) {
-                        cBx_listentities.remove(cBx_listentities.getSelectedIndex());
+                        cBx_listentities.remove(GestionAdherents.getAdherentByFullName(String.valueOf(cBx_listentities.getSelectedIndex())).getAdherentId());
                         JOptionPane.showMessageDialog(null, "Adherent supprimé avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
                         clearFields(tabbedPane1.getSelectedIndex());
                         List<Adherent> adherentList = GestionAdherents.getAdherents();
