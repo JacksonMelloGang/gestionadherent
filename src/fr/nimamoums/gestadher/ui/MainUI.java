@@ -37,17 +37,17 @@ public class MainUI {
     private JCheckBox cH_competitive;
     private JTextField tF_montant;
     private JButton bTn_matosloc;
-    private JList lSt_clubs;
+    private JList<Object> lSt_clubs;
     private JTextField tF_clubTel;
     private JTextField tF_clubMail;
     private JTextField tF_clubSite;
-    private JComboBox cBx_listentities;
+    private JComboBox<String> cBx_listentities;
     private JButton bTn_del;
     private JButton bTn_edit;
     private JButton bTn_add;
-    private JComboBox cBx_filter_searchby;
+    private JComboBox<String> cBx_filter_searchby;
     private JTextField tF_filter_search;
-    private JComboBox cBx_categorie;
+    private JComboBox<String> cBx_categorie;
     private JCheckBox cH_assure;
     private JPanel adhr_panel;
     private JLabel lBl_reduc;
@@ -56,12 +56,12 @@ public class MainUI {
     private JCheckBox cB_msex;
     private JTextField tF_dateinc;
     private JLabel lBl_entity_id;
-    private JComboBox cBx_club;
+    private JComboBox<String> cBx_club;
     private JLabel lBl_entity_name;
     private JTextField tF_clubNom;
     private JTextField tF_clubAdresse;
     private JTextField tF_clubContact;
-    private JList lSt_cats;
+    private JList<String> lSt_cats;
     private JTextArea fTf_catmember;
     private JTextArea fTf_infocat;
     private JPanel catPane;
@@ -92,7 +92,7 @@ public class MainUI {
 
 
         // categorie tab
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<String>();
         for (Categorie categorie : GestionCategories.getCategories()) {
             listModel.add(listModel.size(), categorie.getNom() + " - " + categorie.getCode());
         }
@@ -208,10 +208,10 @@ public class MainUI {
             Categorie categorie = GestionCategories.getCategoryByName(cat[0]);
 
             StringBuilder catInfo = new StringBuilder();
-            catInfo.append("Nom : " + categorie.getNom() + "\n");
-            catInfo.append("Code : " + categorie.getCode() + "\n");
-            catInfo.append("Age Min : " + categorie.getAnnee_min() + "\n");
-            catInfo.append("Age Max : " + categorie.getAnnee_max() + "\n");
+            catInfo.append("Nom : ").append(categorie.getNom()).append("\n");
+            catInfo.append("Code : ").append(categorie.getCode()).append("\n");
+            catInfo.append("Age Min : ").append(categorie.getAnnee_min()).append("\n");
+            catInfo.append("Age Max : ").append(categorie.getAnnee_max()).append("\n");
             fTf_infocat.setText(catInfo.toString());
 
             JScrollPane scrollV = new JScrollPane(fTf_catmember, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -601,7 +601,7 @@ public class MainUI {
     }
 
     private void onbTn_add(int selectedIndex) {
-        if (editmode == true) {
+        if (editmode) {
             // cancel edit mode
             editmode = false;
             bTn_add.setText("Ajouter");
@@ -804,8 +804,6 @@ public class MainUI {
                 tF_citybirth.setText(null);
                 tF_birthdate.setText(null);
                 tF_adr.setText(null);
-
-
                 break;
             case 1:
                 tF_clubNom.setText(null);
