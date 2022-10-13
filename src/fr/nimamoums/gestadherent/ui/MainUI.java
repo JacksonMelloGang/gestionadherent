@@ -215,6 +215,7 @@ public class MainUI {
             catInfo.append("Code : " + categorie.getCode() + "\n");
             catInfo.append("Age Min : " + categorie.getAnnee_min() + "\n");
             catInfo.append("Age Max : " + categorie.getAnnee_max() + "\n");
+            catInfo.append("Montant des adhésions: " + String.format("%.2f", categorie.getMontant()) + "\n");
             fTf_infocat.setText(catInfo.toString());
 
             // 2nd part of categorie, where every member of a category is listed
@@ -309,6 +310,7 @@ public class MainUI {
 
                 Adherent adherent = GestionAdherents.getAdherentByName(entity);
                 if(adherent == null){
+                    //JOptionPane.showMessageDialog(null, "Aucun adhérent trouvé en le recherchant par le nom!");
                     return;
                 }
 
@@ -383,6 +385,11 @@ public class MainUI {
                 }
 
                 Club club = GestionClubs.getClubByName(entity);
+                if(club == null){
+                    //JOptionPane.showMessageDialog(null, "Aucun club trouvé en le recherchant par le nom!");
+                    return;
+                }
+
                 lBl_entity_id.setText(String.valueOf(club.getClubId()));
 
                 tF_clubNom.setText(club.getClubNom());
@@ -417,7 +424,7 @@ public class MainUI {
                 }
             }
 
-
+            tabbedPane1.setEnabled(false);
 
         } else {
             // editmode = true
@@ -514,6 +521,8 @@ public class MainUI {
 
                         Club club = GestionClubs.getClubById(clubId);
                         if(club == null){
+                            // club not found in list
+                            //JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de la récupération du club.", "Erreur", JOptionPane.OK_OPTION);
                             return;
                         }
 

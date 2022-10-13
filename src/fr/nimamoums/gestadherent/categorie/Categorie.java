@@ -1,5 +1,8 @@
 package fr.nimamoums.gestadherent.categorie;
 
+import fr.nimamoums.gestadherent.user.adherent.Adherent;
+import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
+
 import java.io.Serializable;
 import java.time.Year;
 
@@ -68,4 +71,14 @@ public class Categorie implements Serializable {
         this.annee_max = annee_max;
     }
 
+    public double getMontant() {
+        double montant = 0;
+        for(Adherent adh : GestionAdherents.getAdherents()){
+            if(adh.getCategorie().equals(this)){
+                montant = adh.getMontant();
+            }
+        }
+
+        return montant;
+    }
 }
