@@ -12,7 +12,7 @@ public class Club implements Serializable {
     private String mail;
     private String site;
 
-    public Club(int id, String nom, String adresse, String contact, String tel, String mail, String site){
+    public Club(int id, String nom, String adresse, String contact, String tel, String mail, String site) {
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;
