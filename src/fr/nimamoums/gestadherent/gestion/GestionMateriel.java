@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadherent.materiel;
+package fr.nimamoums.gestadherent.gestion;
 
 import fr.nimamoums.gestadherent.materiel.interfaces.Arme;
 import fr.nimamoums.gestadherent.materiel.interfaces.Masque;

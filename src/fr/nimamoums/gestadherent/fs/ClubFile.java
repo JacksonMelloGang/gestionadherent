@@ -1,7 +1,7 @@
 package fr.nimamoums.gestadherent.fs;
 
 import fr.nimamoums.gestadherent.club.Club;
-import fr.nimamoums.gestadherent.club.GestionClubs;
+import fr.nimamoums.gestadherent.gestion.GestionClubs;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

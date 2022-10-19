@@ -1,4 +1,6 @@
-package fr.nimamoums.gestadherent.club;
+package fr.nimamoums.gestadherent.gestion;
+
+import fr.nimamoums.gestadherent.club.Club;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,19 +1,14 @@
 package fr.nimamoums.gestadherent;
 
-import fr.nimamoums.gestadherent.club.GestionClubs;
 import fr.nimamoums.gestadherent.exception.FolderNotFoundException;
 import fr.nimamoums.gestadherent.fs.AdherentFile;
 import fr.nimamoums.gestadherent.fs.CategorieFile;
 import fr.nimamoums.gestadherent.fs.ClubFile;
 import fr.nimamoums.gestadherent.ui.MainUI;
-import fr.nimamoums.gestadherent.user.adherent.Adherent;
-import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
-import fr.nimamoums.gestadherent.categorie.GestionCategories;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Main {
 

@@ -2,12 +2,12 @@ package fr.nimamoums.gestadherent.ui;
 
 import fr.nimamoums.gestadherent.fs.AdherentFile;
 import fr.nimamoums.gestadherent.fs.ClubFile;
-import fr.nimamoums.gestadherent.user.adherent.Adherent;
+import fr.nimamoums.gestadherent.adherent.Adherent;
 import fr.nimamoums.gestadherent.categorie.Categorie;
-import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
-import fr.nimamoums.gestadherent.categorie.GestionCategories;
+import fr.nimamoums.gestadherent.gestion.GestionAdherents;
+import fr.nimamoums.gestadherent.gestion.GestionCategories;
 import fr.nimamoums.gestadherent.club.Club;
-import fr.nimamoums.gestadherent.club.GestionClubs;
+import fr.nimamoums.gestadherent.gestion.GestionClubs;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -194,7 +194,16 @@ public class MainUI {
         bTn_matosloc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "En cours de développement !");
+                //JOptionPane.showMessageDialog(null, "En cours de développement !");
+                if(cBx_listentities.getSelectedIndex() == -1){
+                    JOptionPane.showMessageDialog(null, "Veuillez selectionner un adhérent !");
+                    return;
+                }
+
+                Adherent adherent = GestionAdherents.getAdherents().get(cBx_listentities.getSelectedIndex());
+                MaterielLoue dialog = new MaterielLoue(adherent);
+                dialog.pack();
+                dialog.setVisible(true);
             }
         });
         lSt_cats.addListSelectionListener(new ListSelectionListener() {
@@ -405,6 +414,11 @@ public class MainUI {
     }
 
     private void onbTn_Adhredit(ActionEvent e, int selectedIndex) {
+        if(cBx_listentities.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Veuillez selectionner un adhérent !");
+            return;
+        }
+
         // enable edit mode only if edit mode not enabled
         if(editmode == false){
             editmode = true;
@@ -822,6 +836,11 @@ public class MainUI {
     }
 
     private void onbTn_del() {
+        if(cBx_listentities.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Veuillez selectionner un Adhérent !");
+            return;
+        }
+
         int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             Adherent selectedadherent = GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex());

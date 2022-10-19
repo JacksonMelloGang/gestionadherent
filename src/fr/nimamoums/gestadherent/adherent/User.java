@@ -1,4 +1,4 @@
-package fr.nimamoums.gestadherent.user;
+package fr.nimamoums.gestadherent.adherent;
 
 import java.io.Serializable;
 import java.time.LocalDate;

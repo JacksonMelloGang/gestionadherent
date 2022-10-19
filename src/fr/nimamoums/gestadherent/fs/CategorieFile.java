@@ -1,7 +1,7 @@
 package fr.nimamoums.gestadherent.fs;
 
 import fr.nimamoums.gestadherent.categorie.Categorie;
-import fr.nimamoums.gestadherent.categorie.GestionCategories;
+import fr.nimamoums.gestadherent.gestion.GestionCategories;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -1,4 +1,6 @@
-package fr.nimamoums.gestadherent.user.adherent;
+package fr.nimamoums.gestadherent.gestion;
+
+import fr.nimamoums.gestadherent.adherent.Adherent;
 
 import java.io.*;
 import java.time.LocalDate;

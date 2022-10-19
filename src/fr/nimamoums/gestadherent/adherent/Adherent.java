@@ -1,11 +1,13 @@
-package fr.nimamoums.gestadherent.user.adherent;
+package fr.nimamoums.gestadherent.adherent;
 
 import fr.nimamoums.gestadherent.club.Club;
-import fr.nimamoums.gestadherent.user.User;
+import fr.nimamoums.gestadherent.gestion.GestionAdherents;
+import fr.nimamoums.gestadherent.materiel.Materiel;
 import fr.nimamoums.gestadherent.categorie.Categorie;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class Adherent extends User implements Serializable {
     private Categorie categorie;
@@ -17,6 +19,8 @@ public class Adherent extends User implements Serializable {
 
     private String arme;
 
+    private String lateralite;
+
     private double cotisation;
 
     private boolean assured;
@@ -26,6 +30,8 @@ public class Adherent extends User implements Serializable {
     private boolean reduction3andplusadhere;
 
     private double montant;
+
+    private HashMap<Materiel, Integer> materiels_louee;
 
     //////////////////////////////////////////////////////////////////////////
     // CONSTRUCTEURS
@@ -45,6 +51,7 @@ public class Adherent extends User implements Serializable {
         this.club = club;
         this.montant = montant;
         this.categorie = categorie;
+        this.materiels_louee = new HashMap<Materiel, Integer>();
     }
 
     // without cateogire
@@ -62,6 +69,7 @@ public class Adherent extends User implements Serializable {
         this.club = club;
         this.montant = montant;
         this.categorie = null;
+        this.materiels_louee = new HashMap<Materiel, Integer>();
     }
 
 
@@ -79,6 +87,7 @@ public class Adherent extends User implements Serializable {
         this.lateralite = lateralite;
         this.arme = arme;
         this.montant = montant;
+        this.materiels_louee = new HashMap<Materiel, Integer>();
     }
 
     // without club
@@ -95,6 +104,8 @@ public class Adherent extends User implements Serializable {
         this.arme = arme;
         this.montant = montant;
         this.categorie = categorie;
+        this.materiels_louee = new HashMap<Materiel, Integer>();
+
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -131,8 +142,6 @@ public class Adherent extends User implements Serializable {
     public void setLateralite(String lateralite) {
         this.lateralite = lateralite;
     }
-
-    private String lateralite;
 
 
     public int getAdherentId() {
@@ -171,6 +180,12 @@ public class Adherent extends User implements Serializable {
         return club;
     }
 
+    public HashMap<Materiel, Integer> getMateriels_louee() {
+        return materiels_louee;
+    }
+
+
+
     public void setClub(Club club) {
         this.club = club;
     }
@@ -198,4 +213,25 @@ public class Adherent extends User implements Serializable {
     public void setArme(String arme) {
         this.arme = arme;
     }
+
+    public boolean addMaterialLouee(Materiel materiel, int qte){
+        boolean ok = false;
+        if(!materiels_louee.containsKey(materiel)){
+            ok = true;
+            materiels_louee.put(materiel, qte);
+        }
+
+        return ok;
+    }
+
+    public boolean removeMaterialLouee(Materiel materiel){
+        boolean ok = false;
+        if(materiels_louee.containsKey(materiel)){
+            materiels_louee.replace(materiel, 0);
+            ok = true;
+        }
+
+        return ok;
+    }
+
 }

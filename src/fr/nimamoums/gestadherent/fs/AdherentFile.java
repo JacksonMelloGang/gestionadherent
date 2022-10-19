@@ -1,8 +1,8 @@
 package fr.nimamoums.gestadherent.fs;
 
 import fr.nimamoums.gestadherent.exception.FolderNotFoundException;
-import fr.nimamoums.gestadherent.user.adherent.Adherent;
-import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
+import fr.nimamoums.gestadherent.adherent.Adherent;
+import fr.nimamoums.gestadherent.gestion.GestionAdherents;
 
 import javax.swing.*;
 import java.io.*;

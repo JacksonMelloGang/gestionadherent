@@ -1,18 +1,20 @@
 package fr.nimamoums.gestadherent.ui;
 
 import fr.nimamoums.gestadherent.fs.AdherentFile;
-import fr.nimamoums.gestadherent.user.adherent.Adherent;
+import fr.nimamoums.gestadherent.adherent.Adherent;
 import fr.nimamoums.gestadherent.categorie.Categorie;
-import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
+import fr.nimamoums.gestadherent.gestion.GestionAdherents;
 import fr.nimamoums.gestadherent.club.Club;
-import fr.nimamoums.gestadherent.club.GestionClubs;
-import fr.nimamoums.gestadherent.categorie.GestionCategories;
+import fr.nimamoums.gestadherent.gestion.GestionClubs;
+import fr.nimamoums.gestadherent.gestion.GestionCategories;
+import fr.nimamoums.gestadherent.materiel.Materiel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 public class AjouterAdherentUI extends JDialog {
     private JPanel contentPane;
@@ -40,6 +42,8 @@ public class AjouterAdherentUI extends JDialog {
     private JCheckBox cH_sndmember;
     private JCheckBox cH_thmember;
     private JComboBox cBx_cat;
+    private JButton ajouterButton;
+    public static HashMap<Materiel, Integer> matosloue;
 
     public AjouterAdherentUI() {
 
@@ -117,6 +121,16 @@ public class AjouterAdherentUI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 oncH_sndmember(cH_sndmember, cH_thmember);
+            }
+        });
+        ajouterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MaterielLoue dialog = new MaterielLoue();
+                dialog.pack();
+                dialog.setVisible(true);
+
+                matosloue = dialog.getMateriel();
             }
         });
     }
@@ -308,7 +322,7 @@ public class AjouterAdherentUI extends JDialog {
             dateBirth = LocalDate.parse(tF_date_birth.getText());
         } catch (DateTimeParseException e){
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Veuillez saisir la date de naissance de l'adhérent au format AAAA--JJ-MM-AAAA");
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la date de naissance de l'adhérent au format AAAA-MM-JJ");
             tF_date_birth.requestFocus();
             return;
         }
@@ -433,6 +447,16 @@ public class AjouterAdherentUI extends JDialog {
                 );
 
         GestionAdherents.addAdherent(adh);
+
+        /**
+        adh.addMaterialLouee(Materiel.MATERIEL_ARME, matosloue.get(Materiel.MATERIEL_ARME));
+        adh.addMaterialLouee(Materiel.MATERIEL_KITDEB, matosloue.get(Materiel.MATERIEL_KITDEB));
+        adh.addMaterialLouee(Materiel.MATERIEL_MASQUEFE, matosloue.get(Materiel.MATERIEL_MASQUEFE));
+        adh.addMaterialLouee(Materiel.MATERIEL_MASQUES, matosloue.get(Materiel.MATERIEL_MASQUES));
+        adh.addMaterialLouee(Materiel.MATERIEL_VESTES, matosloue.get(Materiel.MATERIEL_VESTES));
+        adh.addMaterialLouee(Materiel.MATERIEL_MASQUEFE, matosloue.get(Materiel.MATERIEL_VESTEFE));
+        */
+
         AdherentFile.saveFile();
 
         JOptionPane.showMessageDialog(this, "Adhérent ajouté !", "Ajout d'un adhérent", JOptionPane.INFORMATION_MESSAGE);

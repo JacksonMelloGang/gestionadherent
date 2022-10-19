@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fr.nimamoums.gestadherent.ui.MainUI">
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="13" width="1210" height="512"/>
+      <xy x="20" y="13" width="1211" height="512"/>
     </constraints>
     <properties/>
     <border type="none"/>

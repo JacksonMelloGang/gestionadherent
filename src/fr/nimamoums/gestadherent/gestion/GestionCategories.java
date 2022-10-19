@@ -1,5 +1,7 @@
-package fr.nimamoums.gestadherent.categorie;
+package fr.nimamoums.gestadherent.gestion;
 
+
+import fr.nimamoums.gestadherent.categorie.Categorie;
 
 import java.time.Year;
 import java.util.ArrayList;
