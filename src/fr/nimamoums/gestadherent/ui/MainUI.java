@@ -75,7 +75,7 @@ public class MainUI {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 380);
-        frame.setIconImage(ImageIO.read(new File("src\\fr\\nimamoums\\gestadherent\\ui\\icon.jpg")));
+        //frame.setIconImage(ImageIO.read(new File("fr\\nimamoums\\gestadherent\\ui\\icon.jpg")));
         //frame.pack();
         frame.setVisible(true);
 
@@ -843,7 +843,7 @@ public class MainUI {
 
         int result = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet adherent ?", "Suppression", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            Adherent selectedadherent = GestionAdherents.getAdherentByIndex(cBx_listentities.getSelectedIndex());
+            Adherent selectedadherent = GestionAdherents.getAdherentByIndex(Integer.parseInt(lBl_entity_id.getText()));
 
             boolean success = GestionAdherents.removeAdherent(selectedadherent);
             if(success == true) {

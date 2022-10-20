@@ -1,7 +1,7 @@
 package fr.nimamoums.gestadherent.categorie;
 
-import fr.nimamoums.gestadherent.user.adherent.Adherent;
-import fr.nimamoums.gestadherent.user.adherent.GestionAdherents;
+import fr.nimamoums.gestadherent.adherent.Adherent;
+import fr.nimamoums.gestadherent.gestion.GestionAdherents;
 
 import java.io.Serializable;
 import java.time.Year;
@@ -75,7 +75,7 @@ public class Categorie implements Serializable {
         double montant = 0;
         for(Adherent adh : GestionAdherents.getAdherents()){
             if(adh.getCategorie().equals(this)){
-                montant = adh.getMontant();
+                montant += adh.getMontant();
             }
         }
 

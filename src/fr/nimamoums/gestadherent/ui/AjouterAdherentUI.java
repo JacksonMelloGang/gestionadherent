@@ -464,7 +464,7 @@ public class AjouterAdherentUI extends JDialog {
         // Clean everything when the new adherent has been registered
         for (Component component : contentPane.getComponents()) {
             if (component instanceof JTextField) {
-                ((JTextField) component).setText(null);
+                ((JTextField) component).setText("");
             } else {
                 if(component instanceof JComboBox){
                     ((JComboBox) component).setSelectedIndex(0);
